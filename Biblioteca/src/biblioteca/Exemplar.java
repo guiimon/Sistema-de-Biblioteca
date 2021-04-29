@@ -1,19 +1,20 @@
 
 package biblioteca;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class Exemplar extends Livro {
     //atributos
-    private Date dataAquisicao;
+    private Calendar dataAquisicao; //Calendar é superior
     private double preco;
     private boolean inativo; //true caso o livro tenha sido avariado; false para em bom estado
     private boolean emprestado; //true para emprestado(indisponivel) e false para livre(disponivel)
 
     //construtor         
-    public Exemplar(int codigo, String nome, String nomeAutor, String nomeEditora, String area, double preco) {
+    public Exemplar(int codigo, String nome, String nomeAutor, String nomeEditora, String area, double preco, int dia, int mes, int ano) {
         super(codigo, nome, nomeAutor, nomeEditora, area);
-        dataAquisicao = new Date();       
+        dataAquisicao = Calendar.getInstance();        
+        dataAquisicao.set(ano, mes, dia); //recebe a data de aquisição do usuário
         this.preco = preco;
         this.inativo = false;
         emprestado = false;
@@ -27,11 +28,11 @@ public class Exemplar extends Livro {
 
     
     //getters e setters
-    public Date getDataAquisicao() {
+    public Calendar getDataAquisicao() {
         return dataAquisicao;
     }
 
-    public void setDataAquisicao(Date dataAquisicao) {
+    public void setDataAquisicao(Calendar dataAquisicao) {
         this.dataAquisicao = dataAquisicao;
     }
 

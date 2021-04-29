@@ -13,8 +13,8 @@ public class Livro {
     public Livro(int codigo, String nome, String nomeAutor, String nomeEditora, String area) {
         this.codigo = codigo;
         this.nome = nome;
-        Autores autores = new Autores(nomeAutor);
-        Editora editora = new Editora(nomeEditora);
+        autor = new Autores(nomeAutor);
+        editora = new Editora(nomeEditora);
         this.area = area;                
     }
     

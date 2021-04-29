@@ -25,10 +25,11 @@ import java.util.Calendar;
         System.out.println("Livro.\n" + 
                         "codigo : " + exemplar.getCodigo() + "\n" +
                         "nome : " + exemplar.getNome() + "\n" +
-                        "autor : " + exemplar.getAutor() + "\n" +
-                        "editora : " + exemplar.getEditora() + "\n" +
+                        "autor : " + exemplar.getAutor().getNome() + "\n" +
+                        "editora : " + exemplar.getEditora().getNome() + "\n" +
                         "area : " + exemplar.getArea() + "\n" +
-                        "data de aquisição : " + exemplar.getDataAquisicao() + "\n" +
+                         
+                        "data de aquisição : " + exemplar.getDataAquisicao().getTime() + "\n" +
                         "preço : R$" + exemplar.getPreco()  + "\n" +
                         "Foi emprestado? " + exemplar.getEmprestado() + "\n" +
                         "Está inativo? " + exemplar.getInativo());
@@ -66,6 +67,26 @@ import java.util.Calendar;
     public void pesquisarLivro(String nome) {
         for (int i=0; i<=biblioteca.size(); i++) {
             if (biblioteca.get(i).getNome() == nome) {
+                exibirDados(biblioteca.get(i));
+            } else {
+                System.out.println("Livro não encontrado. Não cadastrado ou nome incorreto.");
+            }
+        }
+    }
+    
+    public void pesquisarAutor(String nome) {
+        for (int i=0; i<=biblioteca.size(); i++) {
+            if (biblioteca.get(i).getAutor().getNome() == nome) {
+                exibirDados(biblioteca.get(i));
+            } else {
+                System.out.println("Livro não encontrado. Não cadastrado ou nome incorreto.");
+            }
+        }
+    }
+    
+    public void pesquisarEditora(String nome) {
+        for (int i=0; i<=biblioteca.size(); i++) {
+            if (biblioteca.get(i).getEditora().getNome() == nome) {
                 exibirDados(biblioteca.get(i));
             } else {
                 System.out.println("Livro não encontrado. Não cadastrado ou nome incorreto.");
