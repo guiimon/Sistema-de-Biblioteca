@@ -10,15 +10,16 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
         
     public static void main(String[] args) {
     //com o main aqui não preciso instaciar um objeto Biblioteca
-    Exemplar l0 = new Exemplar(010101, "7 advogados e um cliente", "JJ. James", "ADV Books", "Direito civil", 100, 29, 04, 2021);
-    Funcionario f0 = new Funcionario("ADV01", "Demolidor");
+    Livro livro01 = new Livro(333, "Tratado de direito penal", "Cezar Roberto Bitencourt", "Saraiva", "Direito Penal");
+    Exemplar exmp = new Exemplar(010101, "7 advogados e um cliente", "JJ. James", "ADV Books", "Direito civil", 100, 29, 04, 2021);
+    Funcionario funcionario01 = new Funcionario("ADV01", "Demolidor");
     Biblioteca b = new Biblioteca();
 
     //b.exibirDados(l0);
-    cadastrar(l0);//vou melhorar esses métodos para usarem String
-    exibirDados(f0);
+    cadastrar(exmp);//vou melhorar esses métodos para usarem String
+    exibirDados(funcionario01);
 
-    
+    System.out.println(livro01);
     }
         
     
