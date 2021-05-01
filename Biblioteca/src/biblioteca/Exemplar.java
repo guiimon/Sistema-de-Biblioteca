@@ -9,6 +9,7 @@ public class Exemplar extends Livro {
     private double preco;
     private boolean inativo; //true caso o livro tenha sido avariado; false para em bom estado
     private boolean emprestado; //true para emprestado(indisponivel) e false para livre(disponivel)
+    
 
     //construtor         
     public Exemplar(int codigo, String nome, String nomeAutor, String nomeEditora, String area, double preco, int dia, int mes, int ano) {

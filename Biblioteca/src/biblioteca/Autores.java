@@ -5,7 +5,7 @@ public class Autores {
     private String nome;
 
     public Autores(String nome) {
-        this.nome = nome;
+        this.nome = nome.trim().toLowerCase();
     }       
     
 

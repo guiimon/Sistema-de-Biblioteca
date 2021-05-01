@@ -11,8 +11,8 @@ public class Funcionario {
     //construtor
     //para quem tem OAB
     public Funcionario(String matricula, String nome, int oab) {
-        this.matricula = matricula;
-        this.nome = nome;
+        this.matricula = matricula.trim().toLowerCase();
+        this.nome = nome.trim().toLowerCase();
         this.oab = oab;
     }
     //para quem NÃO tem OAB
