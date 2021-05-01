@@ -1,6 +1,9 @@
 
 package biblioteca;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Funcionario {
     //atributos
     private String matricula;
@@ -8,11 +11,12 @@ public class Funcionario {
     private int oab;
     private Exemplar[] livrosEmprestados = new Exemplar[3];//só pode pegar 4 livros emprestados (0,1,2,3)
     
+
     //construtor
     //para quem tem OAB
     public Funcionario(String matricula, String nome, int oab) {
-        this.matricula = matricula.trim().toLowerCase();
-        this.nome = nome.trim().toLowerCase();
+        this.matricula = matricula.toLowerCase();
+        this.nome = nome.toLowerCase();
         this.oab = oab;
     }
     //para quem NÃO tem OAB
@@ -50,6 +54,5 @@ public class Funcionario {
     public Exemplar[] getLivrosEmprestados() {
         return livrosEmprestados;
     }
-    
-    
+
 }

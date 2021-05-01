@@ -12,10 +12,10 @@ public class Livro {
     //Construtor
     public Livro(int codigo, String nome, String nomeAutor, String nomeEditora, String area) {
         this.codigo = codigo;
-        this.nome = nome.trim().toLowerCase();
+        this.nome = nome.toLowerCase();
         autor = new Autores(nomeAutor);
         editora = new Editora(nomeEditora);
-        this.area = area.trim().toLowerCase();                
+        this.area = area.toLowerCase();            
     }
     
     //Pegadores e Modificadores
