@@ -15,5 +15,9 @@ public class Editora {
     public void setNome(String nome) {
         this.nome = nome;
     }  
-    
+        
+    @Override
+    public String toString () {
+        return this.nome;
+    }
 }
