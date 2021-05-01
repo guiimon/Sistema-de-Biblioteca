@@ -57,6 +57,14 @@ public class Livro {
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
-    } 
-
+    }
+    
+    @Override
+    public String toString () {
+        return "\n\nCódigo: " + this.codigo + ", \n"
+                + "Nome: " + this.nome + ", \n"
+                + "Autor: " + this.getAutor() + ", \n"
+                + "Editora: " + this.getEditora() + ", \n"
+                + "Área da Advocacia: " + this.area;
+    }
 }
