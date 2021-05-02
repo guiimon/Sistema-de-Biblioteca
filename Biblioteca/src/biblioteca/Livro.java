@@ -5,16 +5,16 @@ public class Livro {
     //Atributos
     private int codigo;
     private String nome;
-    private Autores autor;
+    private Autores[] autor;
     private Editora editora;
     private String area;
     
     //Metodos Construtores
     public Livro() {}
-    public Livro(int codigo, String nome, String nomeAutor, String nomeEditora, String area) {
+    public Livro(int codigo, String nome, Autores[] nomeAutor, String nomeEditora, String area) {
         this.codigo = codigo;
         this.nome = nome.toLowerCase();
-        autor = new Autores(nomeAutor);
+        setAutor(nomeAutor);
         editora = new Editora(nomeEditora);
         this.area = area.toLowerCase();            
     }
@@ -28,15 +28,13 @@ public class Livro {
         this.nome = nome;
     }
 
-    public Autores getAutor() {
-        return autor;
-    }
-
-    public void setAutor(Autores autor) {
-        this.autor = autor;
-    }
-
-    public Editora getEditora() {
+    public Autores[] getAutor() {
+		return autor;
+	}
+	public void setAutor(Autores[] autor) {
+		this.autor = autor;
+	}
+	public Editora getEditora() {
         return editora;
     }
 
@@ -60,12 +58,24 @@ public class Livro {
         this.codigo = codigo;
     }
     
+    public String EscreveAutores() {
+    	String autores = "";
+    	for (int i=0; i<getAutor().length; i++) {
+    		if(i==getAutor().length-1) {
+    			autores += getAutor()[i].getNome()+".";
+    		}
+    		
+    		autores+= getAutor()[i].getNome()+", ";
+    	}
+    	return autores;
+    }
+    
     @Override
     public String toString () {
-        return "\n\nCÃ³digo: " + this.codigo + ", \n"
+        return "\n\nCódigo: " + this.codigo + ", \n"
                 + "Nome: " + this.nome + ", \n"
                 + "Autor: " + this.getAutor() + ", \n"
                 + "Editora: " + this.getEditora() + ", \n"
-                + "Ãrea da Advocacia: " + this.area;
+                + "área da Advocacia: " + this.area;
     }
 }

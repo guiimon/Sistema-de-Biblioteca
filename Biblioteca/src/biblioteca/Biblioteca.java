@@ -22,8 +22,9 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
             System.out.println("Digite o nome do Livro:");
             String nome = tecla.nextLine();
             
-            System.out.println("Digite o autor do Livro:");
-            String autor = tecla.nextLine();
+            System.out.println("Digite a quantidade de autores do livro:");
+            int qtd = tecla.nextInt();
+            Autores[] autor = cadastraAutores(qtd, tecla);
             System.out.println("Digite a editora do Livro:");
             String editora = tecla.nextLine();
             System.out.println("Digite a área do Livro:");
@@ -55,7 +56,7 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
         System.out.println("Livro.\n" + 
                         "codigo : " + exemplar.getCodigo() + "\n" +
                         "nome : " + exemplar.getNome() + "\n" +
-                        "autor : " + exemplar.getAutor().getNome() + "\n" +
+                        "autor : " + exemplar.EscreveAutores() + "\n" +
                         "editora : " + exemplar.getEditora().getNome() + "\n" +
                         "area : " + exemplar.getArea() + "\n" +                        
                         "data de aquisição : " + formata.format(exemplar.getDataAquisicao().getTime()) + "\n" +
@@ -186,4 +187,17 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
         exemplar.setInativo(false);
     }
        
+    public static Autores[] cadastraAutores(int quantidade, Scanner tecla) {
+    	Autores[] lista = new Autores[quantidade]; 
+    	for (int i =0; i<quantidade; i++) {
+    		if(quantidade == 1) {
+    			System.out.println("Informe o nome do Autor.");
+        		lista[i] = new Autores(tecla.nextLine());	
+    		}
+    			System.out.println("Informe o nome do "+i+"� Autor.");
+        		lista[i] = new Autores(tecla.nextLine());
+    	}
+    	return lista;
+    }
+    
 }

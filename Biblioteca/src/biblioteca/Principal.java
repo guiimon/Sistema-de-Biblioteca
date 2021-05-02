@@ -34,12 +34,13 @@ public class Principal {
         
         Livro livro = new Livro();
         LivroDAO livroDao = new LivroDAO();
-    
+        Autores[] lista = new Autores[1];
+        lista[0] = new Autores("Cezar Roberto Bitencourt");
         
             // ---- REGISTRO DE LIVROS ---- //
         livro.setCodigo(75);
         livro.setNome("Tratado de direito penal");
-        livro.setAutor(new Autores("Cezar Roberto Bitencourt"));
+        livro.setAutor(lista);
         livro.setEditora(new Editora("Saraiva"));
         livro.setArea("Direito Penal");
 

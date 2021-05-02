@@ -12,7 +12,7 @@ public class Exemplar extends Livro {
     
 
     //construtor         
-    public Exemplar(int codigo, String nome, String nomeAutor, String nomeEditora, String area, double preco, int dia, int mes, int ano) {
+    public Exemplar(int codigo, String nome, Autores[] nomeAutor, String nomeEditora, String area, double preco, int dia, int mes, int ano) {
         super(codigo, nome, nomeAutor, nomeEditora, area);
         dataAquisicao = Calendar.getInstance();        
         dataAquisicao.set(ano, mes, dia); //recebe a data de aquisição do usuário
