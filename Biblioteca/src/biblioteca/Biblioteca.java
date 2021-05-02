@@ -4,11 +4,14 @@ package biblioteca;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import static java.util.Optional.empty;
+import java.util.Scanner;
         
 public class Biblioteca {//Essa é a classe Movimentação do UML da prof  
         
     public static void main(String[] args) {
     //com o main aqui não preciso instaciar um objeto Biblioteca
+
     Livro livro = new Livro();
     LivroDAO livroDao = new LivroDAO();
     
@@ -23,14 +26,29 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
     livro.setEditora(new Editora("Saraiva"));
     livro.setArea("Direito Penal");
     
-    
-    //b.exibirDados(l0);
-    //cadastrar(exmp);//vou melhorar esses métodos para usarem String
-    //exibirDados(funcionario01);
-    
     livroDao.registrarLivro(livro);
     livroDao.listarLivros();
     //System.out.println(livro);
+
+    //b.exibirDados(l0);
+    //cadastrar(l0);//vou melhorar esses métodos para usarem String
+    //cadastrar(f0);
+    
+    //exibirDados(l0);
+    //emprestarLivro(l0, f0);
+    //pesquisarLivro("7 Advogados e um cliente");//apesar do toLowerCase() não está reconhecendo 
+    //pesquisarFuncionario("Demolidor");
+    //exibirDados(f0);
+    String resposta = "";
+    while (!"n".equals(resposta)) {
+        System.out.println("O que deseja fazer?");
+        Scanner tecla = new Scanner(System.in);
+        String comando = tecla.nextLine();
+        executar(comando);
+        pesquisarLivro("big");
+        System.out.println("Continuar?");
+        resposta = tecla.nextLine();
+    }
     }
         
     
@@ -40,7 +58,35 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
     private static Calendar dataEmprestimo; //Calendar é superior ao Date
     private static Calendar dataDevolucao;
     
-    //Principal
+    //Principal 
+    public static void executar(String comando) {
+        if (comando.equals("cadastrar livro")) {
+            Scanner tecla = new Scanner(System.in);
+            System.out.println("Digite o codigo do Livro");
+            int codigo = tecla.nextInt();
+            System.out.println("Digite o nome do Livro:");
+            String nome = tecla.nextLine();
+            
+            System.out.println("Digite o autor do Livro:");
+            String autor = tecla.nextLine();
+            System.out.println("Digite a editora do Livro:");
+            String editora = tecla.nextLine();
+            System.out.println("Digite a área do Livro:");
+            String area = tecla.nextLine();
+            System.out.println("Digite o preço do Livro:");
+            double preco = tecla.nextDouble();
+            System.out.println("Digite o dia de aquisição deste Livro(dd):");
+            int dia = tecla.nextInt();
+            System.out.println("Digite o mês de aquisição deste Livro(mm):");
+            int mes = tecla.nextInt();
+            System.out.println("Digite o ano de aquisição deste Livro(yyyy):");
+            int ano = tecla.nextInt();
+            Exemplar e = new Exemplar(codigo, nome, autor, editora, area, preco, dia, mes, ano);
+            cadastrar(e);
+            
+        }
+    }
+    
     public static void cadastrar(Exemplar exemplar) {
         biblioteca.add(exemplar);
     }
@@ -69,22 +115,22 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                    "Matricula : " + funcionario.getMatricula() + "\n" +
                    "Nome : " + funcionario.getNome());  
                if (funcionario.getOab() == 0) {
-                   System.out.println("não possui OAB" + "\n");
+                   System.out.println("não possui OAB");
                } else {
-                   System.out.println("OAB : " + funcionario.getOab() + "\n");
+                   System.out.println("OAB : " + funcionario.getOab());
                } 
-               if (funcionario.getLivrosEmprestados() == null) {//há um erro que será tratado
+               if (funcionario.getLivrosEmprestados() == null) {
                    System.out.println("Nenhum livro emprestado");
                } else {
                    System.out.println("Livros emprestados : ");
-                   for (int i=0; i<=funcionario.getLivrosEmprestados().length; i++) {
+                   for (int i=0; i<funcionario.getLivrosEmprestados().length; i++) {
                        exibirDados(funcionario.getLivrosEmprestados()[i]);
                        System.out.println();
                    }
                }
         } catch (NullPointerException e) {
         //caso de esse erro o vetor está vazio, logo nenhum livro foi emprestado a esse funcionario 
-            System.out.println("Nenhum livro emprestado");
+            System.out.println("Nenhum livro emprestado\n");
         } 
     } 
           
@@ -99,7 +145,8 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
     
     public static void pesquisarLivro(String nome) {
         for (int i=0; i<biblioteca.size(); i++) {
-            if (biblioteca.get(i).getNome() == nome.trim().toLowerCase()) {
+            if (biblioteca.get(i).getNome() == nome.toLowerCase()) {
+                System.out.println("Livros Encontrados:");
                 exibirDados(biblioteca.get(i));
             } else {
                 System.out.println("Livro não encontrado. Não cadastrado ou nome incorreto.");
@@ -109,7 +156,8 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
     
     public static void pesquisarAutor(String nome) {
         for (int i=0; i<biblioteca.size(); i++) {
-            if (biblioteca.get(i).getAutor().getNome() == nome.trim().toLowerCase()) {
+            if (biblioteca.get(i).getAutor().getNome() == nome.toLowerCase()) {
+                System.out.println("Autores Encontrados:");
                 exibirDados(biblioteca.get(i));
             } else {
                 System.out.println("Livro não encontrado. Não cadastrado ou nome incorreto.");
@@ -119,7 +167,8 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
     
     public static void pesquisarEditora(String nome) {
         for (int i=0; i<biblioteca.size(); i++) {
-            if (biblioteca.get(i).getEditora().getNome() == nome.trim().toLowerCase()) {
+            if (biblioteca.get(i).getEditora().getNome() == nome.toLowerCase()) {
+                System.out.println("Editoras Encontrados:");
                 exibirDados(biblioteca.get(i));
             } else {
                 System.out.println("Livro não encontrado. Não cadastrado ou nome incorreto.");
@@ -127,12 +176,11 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
         }
     }
      
-    public static void pesquisarFuncionario(String nome) {
-        for (int i=0; i<usuarios.size(); i++) {
-            if ( usuarios.isEmpty() ){
-                System.out.println("Funcionário(a) não encontrado(a). Não cadastrado(a) ou nome incorreto.");
-            } else if (usuarios.get(i).getNome() == nome.trim().toLowerCase()) {//elimina espaços antes e depois
-                exibirDados(usuarios.get(i));                                   //transforma em minusculo 
+    public static void pesquisarFuncionario(String nome) {    
+        for (int i=0; i<usuarios.size(); i++) {          
+            if (usuarios.get(i).getNome().toLowerCase() == nome.toLowerCase()) {
+                System.out.println("Funcionarios Encontrados:");
+                exibirDados(usuarios.get(i));                                   
             } else {
                 System.out.println("Funcionário(a) não encontrado(a). Não cadastrado(a) ou nome incorreto.");
             }
@@ -144,30 +192,32 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
         dataEmprestimo = Calendar.getInstance();//pega a data atual
         dataDevolucao = Calendar.getInstance();
         dataDevolucao.add(Calendar.DAY_OF_MONTH, 5);//soma + 5 dias a data atual
-        //vem no padrão americano com a classe SimpleDateFormat formato para o BR
+        //vem no padrão americano, com a classe SimpleDateFormat formato para o BR
         SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
-        formata.format(dataEmprestimo);
-        formata.format(dataDevolucao);
+        formata.format(dataEmprestimo.getTime());
+        formata.format(dataDevolucao.getTime());
         if (exemplar.getEmprestado() == true) {
             System.out.println("Este livro já foi emprestado.");
         } else if (exemplar.getInativo() == true){
             System.out.println("Livro inservível. Avariado ou inativo.");
         } else {
-            for (int i=0; i<4; i++) {
-                if (funcionario.getLivrosEmprestados()[i] == null) {//verifica se tem uma posição vazia
+            if ( funcionario.getLivrosEmprestados() == null) {//verificar isso           
+                    System.out.println("Limite de livros emprestado ecxedido!");
+                } else {
+            for (int i=0; i<funcionario.getLivrosEmprestados().length; i++) {
+                if (funcionario.getLivrosEmprestados()[i] == null ) {//verifica se tem uma posição vazia
                     funcionario.getLivrosEmprestados()[i] = exemplar;  //caso sim guarda nessa posição
                     exemplar.setEmprestado(true);
-                } else if ( funcionario.getLivrosEmprestados() == null ) {//verificar isso, há um erro                  
-                    System.out.println("Limite de livros emprestado ecxedido!");
                 }
             }
+            }    
         }
     }
     
     public static void devolverLivro(Exemplar exemplar, Funcionario funcionario) {
         exemplar.setEmprestado(false);
         for (int i=0; i<4; i++) {
-            if (funcionario.getLivrosEmprestados()[i] == exemplar) {//acho que não vai funcionar
+            if (funcionario.getLivrosEmprestados()[i] == exemplar) {//
                 funcionario.getLivrosEmprestados()[i] = null;  //
             }
         }
