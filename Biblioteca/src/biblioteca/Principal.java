@@ -32,6 +32,20 @@ public class Principal {
             resposta = tecla.nextLine();
         }*/
         
+        Livro livro = new Livro();
+        LivroDAO livroDao = new LivroDAO();
+    
+        
+            // ---- REGISTRO DE LIVROS ---- //
+        livro.setCodigo(75);
+        livro.setNome("Tratado de direito penal");
+        livro.setAutor(new Autores("Cezar Roberto Bitencourt"));
+        livro.setEditora(new Editora("Saraiva"));
+        livro.setArea("Direito Penal");
+
+        livroDao.registrarLivro(livro);
+        livroDao.listarLivros();
+    
     }
     
 }
