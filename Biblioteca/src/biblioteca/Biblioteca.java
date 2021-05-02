@@ -17,7 +17,7 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
     //Biblioteca b = new Biblioteca();
     
     // ---- REGISTRO DE LIVROS ---- //
-    livro.setCodigo(45);
+    livro.setCodigo(75);
     livro.setNome("Tratado de direito penal");
     livro.setAutor(new Autores("Cezar Roberto Bitencourt"));
     livro.setEditora(new Editora("Saraiva"));
@@ -29,6 +29,7 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
     //exibirDados(funcionario01);
     
     livroDao.registrarLivro(livro);
+    livroDao.listarLivros();
     //System.out.println(livro);
     }
         
