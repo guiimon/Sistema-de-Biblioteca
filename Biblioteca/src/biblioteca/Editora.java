@@ -5,7 +5,7 @@ public class Editora {
     private String nome;
 
     public Editora(String nome) {
-        this.nome = nome.trim().toLowerCase();
+        this.nome = nome.toLowerCase();
     }
 
     public String getNome() {
@@ -15,5 +15,9 @@ public class Editora {
     public void setNome(String nome) {
         this.nome = nome;
     }  
-    
+        
+    @Override
+    public String toString () {
+        return this.nome;
+    }
 }
