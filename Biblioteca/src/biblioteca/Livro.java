@@ -9,7 +9,8 @@ public class Livro {
     private Editora editora;
     private String area;
     
-    //Construtor
+    //Metodos Construtores
+    public Livro() {}
     public Livro(int codigo, String nome, String nomeAutor, String nomeEditora, String area) {
         this.codigo = codigo;
         this.nome = nome.trim().toLowerCase();
