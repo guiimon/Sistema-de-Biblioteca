@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import static java.util.Optional.empty;
+import java.util.Scanner;
         
 public class Biblioteca {//Essa é a classe Movimentação do UML da prof  
         
@@ -15,16 +16,24 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
     Biblioteca b = new Biblioteca();
 
     //b.exibirDados(l0);
-    cadastrar(l0);//vou melhorar esses métodos para usarem String
-    cadastrar(f0);
+    //cadastrar(l0);//vou melhorar esses métodos para usarem String
+    //cadastrar(f0);
     
     //exibirDados(l0);
-    emprestarLivro(l0, f0);
+    //emprestarLivro(l0, f0);
     //pesquisarLivro("7 Advogados e um cliente");//apesar do toLowerCase() não está reconhecendo 
     //pesquisarFuncionario("Demolidor");
-    exibirDados(f0);
-    
-    
+    //exibirDados(f0);
+    String resposta = "";
+    while (!"n".equals(resposta)) {
+        System.out.println("O que deseja fazer?");
+        Scanner tecla = new Scanner(System.in);
+        String comando = tecla.nextLine();
+        executar(comando);
+        pesquisarLivro("big");
+        System.out.println("Continuar?");
+        resposta = tecla.nextLine();
+    }
     }
         
     
@@ -34,7 +43,35 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
     private static Calendar dataEmprestimo; //Calendar é superior ao Date
     private static Calendar dataDevolucao;
     
-    //Principal
+    //Principal 
+    public static void executar(String comando) {
+        if (comando.equals("cadastrar livro")) {
+            Scanner tecla = new Scanner(System.in);
+            System.out.println("Digite o codigo do Livro");
+            int codigo = tecla.nextInt();
+            System.out.println("Digite o nome do Livro:");
+            String nome = tecla.nextLine();
+            
+            System.out.println("Digite o autor do Livro:");
+            String autor = tecla.nextLine();
+            System.out.println("Digite a editora do Livro:");
+            String editora = tecla.nextLine();
+            System.out.println("Digite a área do Livro:");
+            String area = tecla.nextLine();
+            System.out.println("Digite o preço do Livro:");
+            double preco = tecla.nextDouble();
+            System.out.println("Digite o dia de aquisição deste Livro(dd):");
+            int dia = tecla.nextInt();
+            System.out.println("Digite o mês de aquisição deste Livro(mm):");
+            int mes = tecla.nextInt();
+            System.out.println("Digite o ano de aquisição deste Livro(yyyy):");
+            int ano = tecla.nextInt();
+            Exemplar e = new Exemplar(codigo, nome, autor, editora, area, preco, dia, mes, ano);
+            cadastrar(e);
+            
+        }
+    }
+    
     public static void cadastrar(Exemplar exemplar) {
         biblioteca.add(exemplar);
     }
