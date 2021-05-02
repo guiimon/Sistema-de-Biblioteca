@@ -6,22 +6,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class LivroDAO {
-    public static void main(String[] args) {
-        Livro livro = new Livro ();
-        
-        livro.setCodigo(555);
-        livro.setNome("Anne");
-        //livro.setAutor();
-        //livro.setEditora("Amazon");
-        livro.setArea("Holocausto");
-        
-        
-        
-        registrarLivro(livro);
-        //System.out.println(livro);
-    }
-    
-    private static void registrarLivro(Livro livro) {
+
+    public static void registrarLivro(Livro livro) {
         File dir = new File("C:\\BancoLivros");
         File arq = new File(dir, "LivrosRegistrados.txt");
         
