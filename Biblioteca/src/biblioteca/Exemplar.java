@@ -1,3 +1,4 @@
+
 package biblioteca;
 
 import java.util.Calendar;
@@ -13,25 +14,29 @@ import java.util.Arrays;
 
 public class Exemplar extends Livro {
     //atributos
-    private Calendar dataAquisicao; //Calendar superior
+    private Calendar dataAquisicao; //Calendar é superior
     private double preco;
     private boolean inativo; //true caso o livro tenha sido avariado; false para em bom estado
     private boolean emprestado; //true para emprestado(indisponivel) e false para livre(disponivel)
     
 
-    //construtor
-    public Exemplar(){}
+    //construtor         
     public Exemplar(int codigo, String nome, Autores[] nomeAutor, String nomeEditora, String area, double preco, int dia, int mes, int ano) {
         super(codigo, nome, nomeAutor, nomeEditora, area);
         dataAquisicao = Calendar.getInstance();        
-        dataAquisicao.set(ano, mes, dia); //recebe a data de aquisicao do usuario
+        dataAquisicao.set(ano, mes, dia); //recebe a data de aquisição do usuário
         this.preco = preco;
         this.inativo = false;
         emprestado = false;
     }
     
+    public Exemplar() {
+    	
+    }
+    
     //metodos princiais
     public void pesquisar() {
+        
     }
     
     public void registrarExemplar() {
@@ -43,6 +48,12 @@ public class Exemplar extends Livro {
             
             	arquivo.createNewFile();
             
+            	/*
+            	O false apagaria o conteúdo do arquivo e escreveria
+            	o novo conteúdo.
+            	Se não usar o 2° parâmetro, ele por padrão será false.
+            	O mais importante, essa linha abre o fluxo do arquivo
+             	*/
             	FileWriter fileWriter = new FileWriter(arquivo, true);
             
             	PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -60,13 +71,14 @@ public class Exemplar extends Livro {
             
             	printWriter.flush();
             
+            	//No final precisamos fechar o arquivo
             	printWriter.close();
             
         	} catch (IOException e) {
             	e.printStackTrace();
         	}
     	}else {
-    		System.out.println("Arquivo com o codigo ja criado.");
+    		System.out.println("Arquivo com o c�digo j� criado.");
     	}
     }
     
@@ -92,7 +104,7 @@ public class Exemplar extends Livro {
 				setInativo(Boolean.parseBoolean(br.readLine()));
 				setEmprestado(Boolean.parseBoolean(br.readLine()));
 			
-			
+				br.close();
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -101,7 +113,7 @@ public class Exemplar extends Livro {
 			}
     	}
     	else {
-    		System.out.println("Caminho especificado nao existe.");
+    		System.out.println("Caminho especificado n�o existe.");
     	}
     }
     
@@ -117,6 +129,12 @@ public class Exemplar extends Livro {
             
             	arquivo.createNewFile();
             
+            	/*
+            	O false apagaria o conteúdo do arquivo e escreveria
+            	o novo conteúdo.
+            	Se não usar o 2° parâmetro, ele por padrão será false.
+            	O mais importante, essa linha abre o fluxo do arquivo
+             	*/
             	FileWriter fileWriter = new FileWriter(arquivo, false);
             
             	PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -134,13 +152,24 @@ public class Exemplar extends Livro {
             
             	printWriter.flush();
             
+            	//No final precisamos fechar o arquivo
             	printWriter.close();
             
         	} catch (IOException e) {
             	e.printStackTrace();
         	}
     	}else {
-    		System.out.println("Caminho especificado nao existe.");
+    		System.out.println("Arquivo especificado n�o existe.");
+    	}
+    }
+    
+    public void excluirExemplar() {
+    	File caminho = new File("C:\\Biblioteca\\Exemplar");
+    	File arquivo = new File(caminho, getCodigo()+".txt" );
+    	if(arquivo.delete()) {
+    		System.out.println("Deletado aquivo "+arquivo.getName());
+    	}else {
+    		System.out.println("Arquivo n�o existe.");
     	}
     }
     

@@ -50,8 +50,10 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
         usuarios.add(funcionario);
     }
        
-    public void exibirDados(Exemplar exemplar) {//Sobrecarregado e Sobreposto (Override and Overload)
+    public void exibirDados(String codigo) {//Sobrecarregado e Sobreposto (Override and Overload)
         SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
+        Exemplar exemplar = new Exemplar();
+        exemplar.recebeExemplar(Integer.parseInt(codigo)); 
         System.out.println("Livro.\n" + 
                         "codigo : " + exemplar.getCodigo() + "\n" +
                         "nome : " + exemplar.getNome() + "\n" +
@@ -63,7 +65,22 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                         "Foi emprestado? " + exemplar.getEmprestado() + "\n" +
                         "Está inativo? " + exemplar.getInativo()+ "\n");
     }   
-
+    
+    public void exibirDados(Exemplar exemplar) {
+    	SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
+    	System.out.println("Livro.\n" + 
+                "codigo : " + exemplar.getCodigo() + "\n" +
+                "nome : " + exemplar.getNome() + "\n" +
+                "autor : " + exemplar.EscreveAutores() + "\n" +
+                "editora : " + exemplar.getEditora().getNome() + "\n" +
+                "area : " + exemplar.getArea() + "\n" +                        
+                "data de aquisição : " + formata.format(exemplar.getDataAquisicao().getTime()) + "\n" +
+                "preço : R$" + exemplar.getPreco()  + "\n" +
+                "Foi emprestado? " + exemplar.getEmprestado() + "\n" +
+                "Está inativo? " + exemplar.getInativo()+ "\n");
+    }
+    
+    
     public void exibirDados(Funcionario funcionario) {//Sobrecarregado e Sobreposto (Override and Overload)
         try {
             System.out.println("Funcionário.\n" + 
@@ -163,7 +180,7 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
             } else {         
                 for (int i=0; i<funcionario.getLivrosEmprestados().length; i++) {
                     if (funcionario.getLivrosEmprestados()[i] == null ) {
-                        funcionario.getLivrosEmprestados()[i] = exemplar;
+                        funcionario.getLivrosEmprestados()[i] = Integer.toString(exemplar.getCodigo());
                         break;
                     }
                 }
@@ -178,7 +195,7 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
     public void devolverLivro(Exemplar exemplar, Funcionario funcionario) {
         exemplar.setEmprestado(false);
         for (int i=0; i<4; i++) {
-            if (funcionario.getLivrosEmprestados()[i].equals(exemplar)) {//
+            if (funcionario.getLivrosEmprestados()[i].equals(Integer.toString(exemplar.getCodigo()))) {//
                 funcionario.getLivrosEmprestados()[i] = null;  //
             }
         }
