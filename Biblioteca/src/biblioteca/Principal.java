@@ -53,12 +53,14 @@ public class Principal {
         livroDao.registrarLivro(livro);
         livroDao.listarLivros();
         
-        //l0.registrarExemplar();
+        l0.registrarExemplar();
         Exemplar l2 = new Exemplar();
         
 		l2.recebeExemplar(4161);
+		//l2.excluirExemplar();
+        System.out.println(l2.getCodigo());
+        System.out.println(new String[1].toString());
         
-        System.out.println(l2.getNome());
     }
     
 }

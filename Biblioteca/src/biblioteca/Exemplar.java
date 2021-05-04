@@ -104,7 +104,7 @@ public class Exemplar extends Livro {
 				setInativo(Boolean.parseBoolean(br.readLine()));
 				setEmprestado(Boolean.parseBoolean(br.readLine()));
 			
-			
+				br.close();
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -159,7 +159,17 @@ public class Exemplar extends Livro {
             	e.printStackTrace();
         	}
     	}else {
-    		System.out.println("Caminho especificado não existe.");
+    		System.out.println("Arquivo especificado não existe.");
+    	}
+    }
+    
+    public void excluirExemplar() {
+    	File caminho = new File("C:\\Biblioteca\\Exemplar");
+    	File arquivo = new File(caminho, getCodigo()+".txt" );
+    	if(arquivo.delete()) {
+    		System.out.println("Deletado aquivo "+arquivo.getName());
+    	}else {
+    		System.out.println("Arquivo não existe.");
     	}
     }
     
