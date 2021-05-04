@@ -54,16 +54,11 @@ public class Principal {
         livroDao.listarLivros();
         
         //l0.registrarExemplar();
-        Exemplar l2 = new Exemplar(12, "7 advogados e um cliente", exemplo , "ADV Books", "Direito civil", 100, 29, 04, 2021);
+        Exemplar l2 = new Exemplar();
         
-        try {
-			l2.recebeExemplar(4161);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		l2.recebeExemplar(4161);
         
-        System.out.println(l2.getCodigo());
+        System.out.println(l2.getNome());
     }
     
 }

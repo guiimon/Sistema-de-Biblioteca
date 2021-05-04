@@ -30,6 +30,9 @@ public class Exemplar extends Livro {
         emprestado = false;
     }
     
+    public Exemplar() {
+    	
+    }
     
     //metodos princiais
     public void pesquisar() {
@@ -39,68 +42,125 @@ public class Exemplar extends Livro {
     public void registrarExemplar() {
     	File caminho = new File("C:\\Biblioteca\\Exemplar");
     	File arquivo = new File(caminho, String.valueOf(getCodigo())+".txt" );
-    	
-    	
-    	try {
+    	if(!(caminho.exists())); caminho.mkdir();
+    	if(!(arquivo.exists())) {
+    		try {
             
-            arquivo.createNewFile();
+            	arquivo.createNewFile();
             
-            /*
-            O false apagaria o conteúdo do arquivo e escreveria
-            o novo conteúdo.
-            Se não usar o 2° parâmetro, ele por padrão será false.
-            O mais importante, essa linha abre o fluxo do arquivo
-            */
-            FileWriter fileWriter = new FileWriter(arquivo, true);
+            	/*
+            	O false apagaria o conteúdo do arquivo e escreveria
+            	o novo conteúdo.
+            	Se não usar o 2° parâmetro, ele por padrão será false.
+            	O mais importante, essa linha abre o fluxo do arquivo
+             	*/
+            	FileWriter fileWriter = new FileWriter(arquivo, true);
             
-            PrintWriter printWriter = new PrintWriter(fileWriter);
+            	PrintWriter printWriter = new PrintWriter(fileWriter);
+            	
+            	printWriter.println(getCodigo());
+            	printWriter.println(getNome());
+            	printWriter.println(Arrays.toString(getAutor()));
+            	printWriter.println(getEditora());
+            	printWriter.println(getArea());
+            	SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
+            	printWriter.println(formata.format(getDataAquisicao().getTime()));
+            	printWriter.println(getPreco());
+            	printWriter.println(getInativo());
+            	printWriter.println(getEmprestado());
             
-            printWriter.println(getCodigo());
-            printWriter.println(getNome());
-            printWriter.println(Arrays.toString(getAutor()));
-            printWriter.println(getEditora());
-            printWriter.println(getArea());
-            SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
-            printWriter.println(formata.format(getDataAquisicao().getTime()));
-            printWriter.println(getPreco());
-            printWriter.println(getInativo());
-            printWriter.println(getEmprestado());
+            	printWriter.flush();
             
-            printWriter.flush();
+            	//No final precisamos fechar o arquivo
+            	printWriter.close();
             
-            //No final precisamos fechar o arquivo
-            printWriter.close();
-            
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        	} catch (IOException e) {
+            	e.printStackTrace();
+        	}
+    	}else {
+    		System.out.println("Arquivo com o c�digo j� criado.");
+    	}
     }
     
-    public void recebeExemplar(int codigo) throws IOException {
+    public void recebeExemplar(int codigo) {
     	String caminho = "C:\\Biblioteca\\Exemplar";
-    	try {
-			BufferedReader br = new BufferedReader(new FileReader(caminho+ "/" + codigo+".txt"));
-			setCodigo(Integer.parseInt(br.readLine()));
-			setNome(br.readLine());
-			setAutor(criaAutores(br.readLine()));
-			setEditora(new Editora(br.readLine()));
-			setArea(br.readLine());
-			String[] data = br.readLine().split("/");
-			Integer[] dataint = new Integer[data.length];
-			for (int i=0; i<data.length; i++) {
-				dataint[i] = Integer.parseInt(data[i]);
+      	File arquivo = new File(caminho, codigo+".txt" );
+    	if(arquivo.exists()) {
+    		try {
+				BufferedReader br = new BufferedReader(new FileReader(caminho+ "/" + codigo+".txt"));
+				setCodigo(Integer.parseInt(br.readLine()));
+				setNome(br.readLine());
+				setAutor(criaAutores(br.readLine()));
+				setEditora(new Editora(br.readLine()));
+				setArea(br.readLine());
+				String[] data = br.readLine().split("/");
+				Integer[] dataint = new Integer[data.length];
+				for (int i=0; i<data.length; i++) {
+					dataint[i] = Integer.parseInt(data[i]);
+				}
+				dataAquisicao = Calendar.getInstance();  
+	        	dataAquisicao.set(dataint[0], dataint[1], dataint[2]);
+				setPreco(Double.parseDouble(br.readLine()));
+				setInativo(Boolean.parseBoolean(br.readLine()));
+				setEmprestado(Boolean.parseBoolean(br.readLine()));
+			
+			
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {	
+				e.printStackTrace();
 			}
-			dataAquisicao = Calendar.getInstance();  
-	        dataAquisicao.set(dataint[0], dataint[1], dataint[2]);
-			setPreco(Double.parseDouble(br.readLine()));
-			setInativo(Boolean.parseBoolean(br.readLine()));
-			setEmprestado(Boolean.parseBoolean(br.readLine()));
-			
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 	
+    	}
+    	else {
+    		System.out.println("Caminho especificado n�o existe.");
+    	}
+    }
+    
+    public void editaExemplar() {
+    	File caminho = new File("C:\\Biblioteca\\Exemplar");
+    	File arquivo = new File(caminho, String.valueOf(getCodigo())+".txt" );
+    	
+    	if(!(caminho.exists())){
+    		caminho.mkdir();
+    	}
+    	if(arquivo.exists()) {
+    			try {
+            
+            	arquivo.createNewFile();
+            
+            	/*
+            	O false apagaria o conteúdo do arquivo e escreveria
+            	o novo conteúdo.
+            	Se não usar o 2° parâmetro, ele por padrão será false.
+            	O mais importante, essa linha abre o fluxo do arquivo
+             	*/
+            	FileWriter fileWriter = new FileWriter(arquivo, false);
+            
+            	PrintWriter printWriter = new PrintWriter(fileWriter);
+            
+            	printWriter.println(getCodigo());
+            	printWriter.println(getNome());
+            	printWriter.println(Arrays.toString(getAutor()));
+            	printWriter.println(getEditora());
+            	printWriter.println(getArea());
+            	SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
+            	printWriter.println(formata.format(getDataAquisicao().getTime()));
+            	printWriter.println(getPreco());
+            	printWriter.println(getInativo());
+            	printWriter.println(getEmprestado());
+            
+            	printWriter.flush();
+            
+            	//No final precisamos fechar o arquivo
+            	printWriter.close();
+            
+        	} catch (IOException e) {
+            	e.printStackTrace();
+        	}
+    	}else {
+    		System.out.println("Caminho especificado n�o existe.");
+    	}
     }
     
     //getters e setters
