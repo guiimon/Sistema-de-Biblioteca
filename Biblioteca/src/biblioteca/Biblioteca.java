@@ -13,33 +13,90 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
     private  Calendar dataDevolucao;
     
     //Principal 
-    public static void executar(String comando, Biblioteca b) {
-        if (comando.equals("cadastrar livro")) {
-            Scanner tecla = new Scanner(System.in);
-            System.out.println("Digite o codigo do Livro");
-            int codigo = tecla.nextInt();
-            System.out.println("Digite o nome do Livro:");
-            String nome = tecla.nextLine();
-            
-            System.out.println("Digite a quantidade de autores do livro:");
-            int qtd = tecla.nextInt();
-            Autores[] autor = cadastraAutores(qtd, tecla);
-            System.out.println("Digite a editora do Livro:");
-            String editora = tecla.nextLine();
-            System.out.println("Digite a área do Livro:");
-            String area = tecla.nextLine();
-            System.out.println("Digite o preço do Livro:");
-            double preco = tecla.nextDouble();
-            System.out.println("Digite o dia de aquisição deste Livro(dd):");
-            int dia = tecla.nextInt();
-            System.out.println("Digite o mês de aquisição deste Livro(mm):");
-            int mes = tecla.nextInt();
-            System.out.println("Digite o ano de aquisição deste Livro(yyyy):");
-            int ano = tecla.nextInt();
-            Exemplar e = new Exemplar(codigo, nome, autor, editora, area, preco, dia, mes, ano);
-            b.cadastrar(e);
-            
+    public void executar(String comando, Biblioteca b) {
+        Scanner tecla = new Scanner(System.in);
+        Scanner tecla1 = new Scanner(System.in);
+        System.out.println("Ola, voce e um funcionario ou secretaria?");
+        String resp1 = tecla1.nextLine();
+        if ("secretaria".equals(resp1)) {
+            System.out.println("Ola, o que voce deseja fazer?\n"
+                         + "cadastrar livro\n"
+                         + "cadastrar funcionario\n"
+                         + "pesquisar livro\n"
+                         + "pesquisar funcionario\n"
+                         + "emprestar livro\n"
+                         + "devolver livro\n");
+            if (comando.equals("cadastrar livro")) {   
+                System.out.println("Digite o codigo do Livro");
+                int codigo = tecla.nextInt();
+                System.out.println("Digite o nome do Livro:");
+                String nome = tecla1.nextLine();
+                System.out.println("Digite a quantidade de autores do livro:");
+                int qtd = tecla.nextInt();
+                Autores[] autor = cadastraAutores(qtd, tecla);
+                System.out.println("Digite a editora do Livro:");
+                String editora = tecla.nextLine();
+                System.out.println("Digite a área do Livro:");
+                String area = tecla.nextLine();
+                System.out.println("Digite o preço do Livro:");
+                double preco = tecla.nextDouble();
+                System.out.println("Digite o dia de aquisição deste Livro(dd):");
+                int dia = tecla.nextInt();
+                System.out.println("Digite o mês de aquisição deste Livro(mm):");
+                int mes = tecla.nextInt();
+                System.out.println("Digite o ano de aquisição deste Livro(yyyy):");
+                int ano = tecla.nextInt();
+                Exemplar e = new Exemplar(codigo, nome, autor, editora, area, preco, dia, mes, ano);
+                b.cadastrar(e);          
+            }
+
+            if (comando.equals("cadastrar funcionario")) {
+                System.out.println("Qual é a matricula do funcionario?");
+                String matricula = tecla.nextLine();
+                System.out.println("Qual o nome do funcionario?");
+                String nome = tecla.nextLine();
+                System.out.println("O funcionario possui OAB?[s]sim ou [n]nao:");
+                String resp = tecla.nextLine();
+                if ("s".equals(resp)) {
+                System.out.println("Digite o número da OAB:");
+                int oab = tecla.nextInt();
+                Funcionario f = new Funcionario(matricula, nome, oab);
+                b.cadastrar(f);
+                System.out.println("Funcionario cadastrado com sucesso.");
+                } else {
+                    Funcionario f = new Funcionario(matricula, nome);
+                    b.cadastrar(f);
+                    System.out.println("Funcionario cadastrado com sucesso.");
+                }
+            }
+
+            if (comando.equals("emprestrar livro")) {
+
+            }
         }
+        
+        if ("funcionario".equals(resp1)) {
+            System.out.println("Ola, o que voce deseja fazer?\n"
+                             + "[1]pesquisar livro pelo titulo\n"
+                             + "[2]pesquisar livro pelo autor\n"
+                             + "[3]pesquisar livro pelo editora\n"
+                             + "Digite o numero da opçao desejada:");
+            int opcao = tecla1.nextInt();
+            switch (opcao) {
+                case 1:
+                    System.out.println("Digite o titulo do livro:\n");
+                    String titulo = tecla1.nextLine();
+                    pesquisarLivro(titulo);
+                case 2:
+                    System.out.println("Digite o autor do livro:\n");
+                    String autor = tecla1.nextLine();
+                    pesquisarAutor(autor);
+                case 3:
+                    System.out.println("Digite o editora do livro:\n");
+                    String editora = tecla1.nextLine();
+                    pesquisarEditora(editora);                       
+            }  
+        }  
     }
     
     public void cadastrar(Exemplar exemplar) {
@@ -177,7 +234,8 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                 System.out.println("Este livro já foi emprestado.");
             } else if (exemplar.getInativo() == true){
                 System.out.println("Livro inservível. Avariado ou inativo.");
-            } else {         
+            } else { 
+                exemplar.setEmprestado(true);
                 for (int i=0; i<funcionario.getLivrosEmprestados().length; i++) {
                     if (funcionario.getLivrosEmprestados()[i] == null ) {
                         funcionario.getLivrosEmprestados()[i] = Integer.toString(exemplar.getCodigo());
