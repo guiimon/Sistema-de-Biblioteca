@@ -66,7 +66,7 @@ public class Exemplar extends Livro {
             	e.printStackTrace();
         	}
     	}else {
-    		System.out.println("Arquivo com o código já criado.");
+    		System.out.println("Arquivo com o cï¿½digo ja criado.");
     	}
     }
     
@@ -101,7 +101,7 @@ public class Exemplar extends Livro {
 			}
     	}
     	else {
-    		System.out.println("Caminho especificado não existe.");
+    		System.out.println("Caminho especificado nao existe.");
     	}
     }
     
@@ -140,7 +140,7 @@ public class Exemplar extends Livro {
             	e.printStackTrace();
         	}
     	}else {
-    		System.out.println("Caminho especificado não existe.");
+    		System.out.println("Caminho especificado nao existe.");
     	}
     }
     

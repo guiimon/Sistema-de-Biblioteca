@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Principal {
-    public static void main(String[] args) {//Classe Movimentação do diagrama UML
+    public static void main(String[] args) {//Classe Movimentaco do diagrama UML
 
     	new CriaDiretorios();
     	Autores[] exemplo = new Autores[1];
@@ -101,8 +101,8 @@ public class Principal {
             arq.createNewFile();
             FileWriter fileWriter = new FileWriter(arq, false);
             PrintWriter printWriter = new PrintWriter(fileWriter);
-            //Utilizamos o método print() para escrever na mesma linha e um ponto e vírgula no final.
-            // para o próximo user.
+            //Utilizamos o metodo print() para escrever na mesma linha e um ponto e virgula no final.
+            // para o proximo user.
             for (Autores autor : autores) {
                 printWriter.print(autor.getNome() + ",");
             }
@@ -118,7 +118,7 @@ public class Principal {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String linha = "";
             
-            //Lista que irá guardar o resultado, ou seja,
+            //Lista que ira guardar o resultado, ou seja,
             // cada linha do arquivo que corresponde a um User
             List<String> result = new ArrayList();
             
@@ -132,17 +132,17 @@ public class Principal {
             bufferedReader.close();
             
             for (String s : result) {
-                //Usamos o método split da classe String
-                // para separar as partes entre os ponto e vírgulas.
+                //Usamos o metodo split da classe String
+                // para separar as partes entre os ponto e virgulas.
                 //Guardamos o resultado em um array
                 String[] autor = s.split(";");
                 
                 //Criamos um objeto User e setamos em seus atributos
-                //as posições correspondentes do array
+                //as posices correspondentes do array
                 Autores u = new Autores();
                 u.setNome(autor[0]);
                 
-                //exibe o conteúdo do objeto u
+                //exibe o conteudo do objeto u
                 //System.out.println(u.toString());
             }
         } catch (IOException e) {

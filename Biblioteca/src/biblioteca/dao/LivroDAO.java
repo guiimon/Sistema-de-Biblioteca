@@ -20,14 +20,9 @@ public class LivroDAO {
     private static final String FILE = "LivrosRegistrados.txt";
 
     public static void registrarLivro(Livro livro) {
-<<<<<<< HEAD:Biblioteca/src/biblioteca/dao/LivroDAO.java
+
         File dir = new File(PATH);
         File arq = new File(dir, FILE);
-=======
-        File dir = new File("C:/BancoLivros");
-        File arq = new File(dir, "LivrosRegistrados.txt");
->>>>>>> main:Biblioteca/src/biblioteca/LivroDAO.java
-        
         
         try {
             
@@ -62,14 +57,9 @@ public class LivroDAO {
     }
     
     public static void listarLivros() {
-<<<<<<< HEAD:Biblioteca/src/biblioteca/dao/LivroDAO.java
+
         File dir = new File(PATH);
         File arq = new File(dir, FILE);
-=======
-        
-        File dir = new File("C:\\BancoLivros");
-        File arq = new File(dir, "\\LivrosRegistrados.txt");
->>>>>>> main:Biblioteca/src/biblioteca/LivroDAO.java
         
         try {
             
