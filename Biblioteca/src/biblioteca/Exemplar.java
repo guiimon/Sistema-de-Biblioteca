@@ -2,6 +2,15 @@
 package biblioteca;
 
 import java.util.Calendar;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
 public class Exemplar extends Livro {
     //atributos
@@ -26,7 +35,73 @@ public class Exemplar extends Livro {
     public void pesquisar() {
         
     }
-
+    
+    public void registrarExemplar() {
+    	File caminho = new File("C:\\Biblioteca\\Exemplar");
+    	File arquivo = new File(caminho, String.valueOf(getCodigo())+".txt" );
+    	
+    	
+    	try {
+            
+            arquivo.createNewFile();
+            
+            /*
+            O false apagaria o conteúdo do arquivo e escreveria
+            o novo conteúdo.
+            Se não usar o 2° parâmetro, ele por padrão será false.
+            O mais importante, essa linha abre o fluxo do arquivo
+            */
+            FileWriter fileWriter = new FileWriter(arquivo, true);
+            
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            
+            printWriter.println(getCodigo());
+            printWriter.println(getNome());
+            printWriter.println(Arrays.toString(getAutor()));
+            printWriter.println(getEditora());
+            printWriter.println(getArea());
+            SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
+            printWriter.println(formata.format(getDataAquisicao().getTime()));
+            printWriter.println(getPreco());
+            printWriter.println(getInativo());
+            printWriter.println(getEmprestado());
+            
+            printWriter.flush();
+            
+            //No final precisamos fechar o arquivo
+            printWriter.close();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void recebeExemplar(int codigo) throws IOException {
+    	String caminho = "C:\\Biblioteca\\Exemplar";
+    	try {
+			BufferedReader br = new BufferedReader(new FileReader(caminho+ "/" + codigo+".txt"));
+			setCodigo(Integer.parseInt(br.readLine()));
+			setNome(br.readLine());
+			setAutor(criaAutores(br.readLine()));
+			setEditora(new Editora(br.readLine()));
+			setArea(br.readLine());
+			String[] data = br.readLine().split("/");
+			Integer[] dataint = new Integer[data.length];
+			for (int i=0; i<data.length; i++) {
+				dataint[i] = Integer.parseInt(data[i]);
+			}
+			dataAquisicao = Calendar.getInstance();  
+	        dataAquisicao.set(dataint[0], dataint[1], dataint[2]);
+			setPreco(Double.parseDouble(br.readLine()));
+			setInativo(Boolean.parseBoolean(br.readLine()));
+			setEmprestado(Boolean.parseBoolean(br.readLine()));
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 	
+    }
     
     //getters e setters
     public Calendar getDataAquisicao() {
@@ -36,8 +111,8 @@ public class Exemplar extends Livro {
     public void setDataAquisicao(Calendar dataAquisicao) {
         this.dataAquisicao = dataAquisicao;
     }
-
-    public double getPreco() {
+    
+	public double getPreco() {
         return preco;
     }
 
@@ -60,5 +135,14 @@ public class Exemplar extends Livro {
     public void setEmprestado(boolean emprestado) {
         this.emprestado = emprestado;
     }     
+    
+    public Autores[] criaAutores(String codigo) {
+    	String[] nomes = codigo.replace("[", "").replace("]", "").split(", ");
+    	Autores[] autor = new Autores[nomes.length];
+    	for (int i = 0; i <autor.length; i++) {
+        	autor[i] = new Autores(nomes[i]);
+        }
+    	return autor;
+    }
     
 }

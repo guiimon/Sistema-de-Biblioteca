@@ -111,13 +111,17 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
     }
     
     public void pesquisarAutor(String nome) {
+    	int encontrados = 0;
         for (int i=0; i<biblioteca.size(); i++) {
-            if (biblioteca.get(i).getAutor().getNome().equals(nome.toLowerCase())) {
+        	for (int j=0; j<biblioteca.get(i).getAutor().length; j++)
+            if (biblioteca.get(i).getAutor()[i].getNome().equals(nome.toLowerCase())) {
                 System.out.println("Autores Encontrados:");
                 exibirDados(biblioteca.get(i));
-            } else {
-                System.out.println("Livro não encontrado. Não cadastrado ou nome incorreto.");
-            }
+                encontrados++;
+            }   
+        }
+        if(encontrados == 0) {
+            System.out.println("Livro não encontrado. Não cadastrado ou nome incorreto.");
         }
     }
     

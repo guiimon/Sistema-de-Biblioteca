@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 public class LivroDAO {
 
     public static void registrarLivro(Livro livro) {
-        File dir = new File("C:\\BancoLivros");
+        File dir = new File("C:/BancoLivros");
         File arq = new File(dir, "LivrosRegistrados.txt");
         
         try {
@@ -46,7 +46,7 @@ public class LivroDAO {
     public static void listarLivros() {
         
         File dir = new File("C:\\BancoLivros");
-        File arq = new File(dir, "LivrosRegistrados.txt");
+        File arq = new File(dir, "\\LivrosRegistrados.txt");
         
         try {
             
