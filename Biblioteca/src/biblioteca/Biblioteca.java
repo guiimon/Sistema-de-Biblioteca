@@ -1,4 +1,3 @@
-
 package biblioteca;
 
 import java.text.SimpleDateFormat;
@@ -169,9 +168,11 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                     }
                 }
             }
+            
         } catch (NullPointerException e) {//substituir pelo erro de limite excedido do vetor
             System.out.println("Limite de livros emprestados excedido!");
         }
+
     }
     
     public void devolverLivro(Exemplar exemplar, Funcionario funcionario) {
@@ -198,7 +199,6 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
     			System.out.println("Informe o nome do Autor.");
         		lista[i] = new Autores(tecla.nextLine());	
     		}
-    			System.out.println("Informe o nome do "+i+"� Autor.");
         		lista[i] = new Autores(tecla.nextLine());
     	}
     	return lista;

@@ -1,23 +1,34 @@
-package biblioteca;
+/*
+Data Access Object - DAO
+*/
 
+package biblioteca.dao;
+
+import biblioteca.Autores;
+import biblioteca.Livro;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 public class LivroDAO {
+    
+    public static final String PATH = "C:\\BancoLivros";
+    private static final String FILE = "LivrosRegistrados.txt";
 
     public static void registrarLivro(Livro livro) {
-        File dir = new File("C:/BancoLivros");
-        File arq = new File(dir, "LivrosRegistrados.txt");
-        
+
+        File dir = new File(PATH);
+        File arq = new File(dir, FILE);
         
         try {
             
-            arq.createNewFile();
-            
+            if (!dir.exists()) dir.mkdir();                
+            if (!arq.exists()) arq.createNewFile();
+                
             /*
             O false apagaria o conteúdo do arquivo e escreveria
             o novo conteúdo.
@@ -28,11 +39,12 @@ public class LivroDAO {
             
             PrintWriter printWriter = new PrintWriter(fileWriter);
             
-            printWriter.println(livro.getCodigo());
-            printWriter.println(livro.getNome());
-            printWriter.println(livro.getAutor());
-            printWriter.println(livro.getEditora());
-            printWriter.println(livro.getArea());
+            printWriter.println("Código: " + livro.getCodigo());
+            printWriter.println("Nome: " + livro.getNome());
+            //printWriter.println("Autor: " + Autores.layout());
+            printWriter.println("Editora:" + livro.getEditora());
+            printWriter.println("Área da advocacia: " + livro.getArea());
+            printWriter.print("\n");
             
             printWriter.flush();
             
@@ -45,9 +57,9 @@ public class LivroDAO {
     }
     
     public static void listarLivros() {
-        
-        File dir = new File("C:\\BancoLivros");
-        File arq = new File(dir, "\\LivrosRegistrados.txt");
+
+        File dir = new File(PATH);
+        File arq = new File(dir, FILE);
         
         try {
             

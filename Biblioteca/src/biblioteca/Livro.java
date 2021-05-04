@@ -1,4 +1,3 @@
-
 package biblioteca;
 
 public class Livro {
@@ -72,10 +71,11 @@ public class Livro {
     
     @Override
     public String toString () {
-        return "\n\nCÛdigo: " + this.codigo + ", \n"
+        return "\n\nC√≥digo: " + this.codigo + ", \n"
                 + "Nome: " + this.nome + ", \n"
-                + "Autor: " + this.getAutor() + ", \n"
+                //+ "Autor: " + this.getAutor() + ", \n"
                 + "Editora: " + this.getEditora() + ", \n"
-                + "·rea da Advocacia: " + this.area;
+                + "√Årea da Advocacia: " + this.area;
+
     }
 }

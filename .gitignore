@@ -124,6 +124,12 @@ local.properties
 
 ### Eclipse Patch ###
 # Spring Boot Tooling
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+.sts4-cache/
+=======
+>>>>>>> libary-migration
 .sts4-cache/
 Biblioteca/build.xml
 Biblioteca/lib/nblibraries.properties
@@ -132,3 +138,7 @@ Biblioteca/nbproject/project.xml
 Biblioteca/nbproject/project.properties
 Biblioteca/nbproject/genfiles.properties
 Biblioteca/manifest.mf
+<<<<<<< HEAD
+=======
+>>>>>>> main
+>>>>>>> libary-migration
