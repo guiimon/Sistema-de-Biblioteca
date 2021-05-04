@@ -58,7 +58,7 @@ public class Funcionario {
     }
     
     public void recebeFuncionario(String matricula) {
-    	String caminho = "C:\\Biblioteca\\Exemplar";
+    	String caminho = "C:\\Biblioteca\\funcionario";
       	File arquivo = new File(caminho, matricula+".txt" );
     	if(arquivo.exists()) {
     		try {
@@ -115,7 +115,7 @@ public class Funcionario {
     
      public void excluirFuncionario() {
     	 
-    	 File caminho = new File("C:\\Biblioteca\\Exemplar");
+    	 File caminho = new File("C:\\Biblioteca\\funcionario");
      	 File arquivo = new File(caminho, getMatricula()+".txt" );
      	
      	 if(arquivo.delete()) {

@@ -1,20 +1,16 @@
 package biblioteca;
 
-import biblioteca.dao.LivroDAO;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Autores {
     private String nome;
-    List userList = new ArrayList();
-
-    
+   
     public Autores(){}
     public Autores(String nome) {
         this.nome = nome.toUpperCase();
@@ -28,74 +24,87 @@ public class Autores {
         this.nome = nome;
     }
      
-    public List getUserList() {
-        return userList;
+    public void registraAutor() {
+    	File caminho = new File("C:\\biblioteca\\autor");
+    	File arquivo = new File(caminho, getNome()+".txt" );
+    	
+    	if(!(caminho.exists())); caminho.mkdir();
+    	if(!(arquivo.exists())) {
+    		try {
+    			arquivo.createNewFile();
+    			
+    			FileWriter fileWriter = new FileWriter(arquivo, true);
+            	PrintWriter printWriter = new PrintWriter(fileWriter);
+            	
+            	printWriter.println(getNome());
+            	printWriter.flush();
+            	
+            	printWriter.close();
+    		}catch(IOException e){
+    			e.printStackTrace();
+    		}
+    	}
     }
-
-    public void setUserList(List userList) {
-        this.userList = userList;
-    }
+   
+   public void recebeAutor(String nome) {
+	   File caminho = new File("C:\\biblioteca\\autor");
+	   File arquivo = new File(caminho, nome+".txt" );
+	   
+	   if(arquivo.exists()) {
+		   try {
+			   
+			   BufferedReader br = new BufferedReader(new FileReader(caminho+ "/" + nome+".txt"));
+			   setNome(br.readLine());
+				br.close();
+		   } catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {	
+				e.printStackTrace();
+			}
+	   }else {
+		   System.out.println("Caminho especificado n�o existe.");
+	   }
+   }
     
-    public static void layout(List<Autores> autores) {
-        String path = LivroDAO.PATH;
-        File dir = new File(path);
-        File arq = new File(dir, "User2.txt");
-
-        if (!dir.exists()) dir.mkdir();
-        
-        try {
-            arq.createNewFile();
-            FileWriter fileWriter = new FileWriter(arq, false);
-            PrintWriter printWriter = new PrintWriter(fileWriter);
-            //Utilizamos o método print() para escrever na mesma linha e um ponto e vírgula no final.
-            // para o próximo user.
-            for (Autores autor : autores) {
-                printWriter.print(autor.getNome() + ",");
-            }
-            printWriter.flush();
-            printWriter.close();
-            
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
-        
-        try {
-            FileReader fileReader = new FileReader(arq);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String linha = "";
-            
-            //Lista que irá guardar o resultado, ou seja,
-            // cada linha do arquivo que corresponde a um User
-            List<String> result = new ArrayList();
-            
-            while ((linha = bufferedReader.readLine()) != null) {
-                System.out.println(linha);
-                if (linha != null && !linha.isEmpty()) {
-                    result.add(linha);
-                }
-            }
-            fileReader.close();
-            bufferedReader.close();
-            
-            for (String s : result) {
-                //Usamos o método split da classe String
-                // para separar as partes entre os ponto e vírgulas.
-                //Guardamos o resultado em um array
-                String[] autor = s.split(";");
-                
-                //Criamos um objeto User e setamos em seus atributos
-                //as posições correspondentes do array
-                Autores u = new Autores();
-                u.setNome(autor[0]);
-                
-                //exibe o conteúdo do objeto u
-                //System.out.println(u.toString());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
+   public void editaAutor() {
+	   File caminho = new File("C:\\biblioteca\\autor");
+	   File arquivo = new File(caminho, getNome()+".txt" );
+	   
+	   if(!(caminho.exists())){
+  	 	 caminho.mkdir();
+  	 }
+  	 if(arquivo.exists()) {
+  		 try {
+  			arquivo.createNewFile();
+ 			
+ 			FileWriter fileWriter = new FileWriter(arquivo, false);
+         	PrintWriter printWriter = new PrintWriter(fileWriter);
+         	
+         	printWriter.println(getNome());
+         	printWriter.flush();
+         	
+         	printWriter.close();
+  		 } catch(IOException e){
+  			e.printStackTrace();
+  		 }
+  	 }else {
+  		System.out.println("Arquivo especificado n�o existe.");
+  	 }
+   }
+   
+   public void excluirAutor() {
+  	 
+  	 File caminho = new File("C:\\Biblioteca\\autor");
+   	 File arquivo = new File(caminho, getNome()+".txt" );
+   	
+   	 if(arquivo.delete()) {
+  		 System.out.println("Deletado aquivo "+arquivo.getName());
+  	 }else {
+  		 System.out.println("Arquivo n�o existe.");
+  	 }
+   }
+   
     @Override
     public String toString () {
         return this.nome;

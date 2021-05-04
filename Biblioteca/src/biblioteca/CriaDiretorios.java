@@ -29,11 +29,6 @@ public class CriaDiretorios {
 			dir.mkdir();
 		}
 		
-		dir = new File("c:\\biblioteca\\emprestimos");
-		if(!dir.exists()) {
-			dir.mkdir();
-		}
-		
 		dir = new File("c:\\biblioteca\\funcionario");
 		if(!dir.exists()) {
 			dir.mkdir();

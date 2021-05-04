@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Biblioteca {//Essa é a classe Movimentação do UML da prof    
     //Atributos
     static ArrayList<Exemplar> biblioteca = new ArrayList();
-    static ArrayList<Funcionario> usuarios = new ArrayList();
+    static ArrayList<Funcionario> usuarios = new ArrayList<>();
     private  Calendar dataEmprestimo; //Calendar é superior ao Date
     private  Calendar dataDevolucao;
     
