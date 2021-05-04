@@ -31,6 +31,7 @@ public class Principal {
         while (!"n".equals(resposta)) {
             System.out.println("O que deseja fazer?");
             Scanner tecla = new Scanner(System.in);
+            
             String comando = tecla.nextLine();
             b.executar(comando, b);
             b.pesquisarLivro("big");
@@ -39,7 +40,7 @@ public class Principal {
         }*/
         
         Livro livro = new Livro();
-        LivroDAO livroDao = new LivroDAO();
+        //LivroDAO livroDao = new LivroDAO();
         
         
             // ---- REGISTRO DE LIVROS ---- //
@@ -50,8 +51,8 @@ public class Principal {
         livro.setAutor(lista);
         livro.setEditora(new Editora("Saraiva"));
         livro.setArea("Direito Penal");
-        livroDao.registrarLivro(livro);
-        livroDao.listarLivros();
+        //livroDao.registrarLivro(livro);
+        //livroDao.listarLivros();
         
         l0.registrarExemplar();
         Exemplar l2 = new Exemplar();

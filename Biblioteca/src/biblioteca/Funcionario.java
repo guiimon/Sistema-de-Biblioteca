@@ -38,11 +38,11 @@ public class Funcionario {
     	File arquivo = new File(caminho, getMatricula()+".txt" );
     	if(!(caminho.exists())); caminho.mkdir();
     	if(!(arquivo.exists())) {
-    		try {
-    			arquivo.createNewFile();
-    			
-    			FileWriter fileWriter = new FileWriter(arquivo, true);
-            	PrintWriter printWriter = new PrintWriter(fileWriter);
+            try {
+                arquivo.createNewFile();
+
+                FileWriter fileWriter = new FileWriter(arquivo, true);
+                PrintWriter printWriter = new PrintWriter(fileWriter);
             	
             	printWriter.println(getMatricula());
             	printWriter.println(getNome());
@@ -51,9 +51,9 @@ public class Funcionario {
             	printWriter.flush();
             	
             	printWriter.close();
-    		}catch(IOException e){
-    			e.printStackTrace();
-    		}
+            }catch(IOException e){
+                e.printStackTrace();
+            }
     	}
     }
     
@@ -61,26 +61,25 @@ public class Funcionario {
     	String caminho = "C:\\Biblioteca\\funcionario";
       	File arquivo = new File(caminho, matricula+".txt" );
     	if(arquivo.exists()) {
-    		try {
-				BufferedReader br = new BufferedReader(new FileReader(caminho+ "/" + matricula+".txt"));
-				setMatricula(br.readLine());
-				setNome(br.readLine());
-				setOab(Integer.parseInt(br.readLine()));
-				String[] codigos = new String[4];
-				codigos = br.readLine().replace("[","").replace("]", "").split(", ");
-				setLivrosEmprestados(codigos);
-				br.close();
-				
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {	
-				e.printStackTrace();
-			}
-    	}
-    	else {
-    		System.out.println("Caminho especificado não existe.");
-    	}
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(caminho+ "/" + matricula+".txt"));
+                setMatricula(br.readLine());
+                setNome(br.readLine());
+                setOab(Integer.parseInt(br.readLine()));
+                String[] codigos = new String[4];
+                codigos = br.readLine().replace("[","").replace("]", "").split(", ");
+                setLivrosEmprestados(codigos);
+                br.close();
+
+            } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+            } catch (IOException e) {	
+                    e.printStackTrace();
+            }
+        } else {
+            System.out.println("Caminho especificado nï¿½o existe.");
+        }
     }
     
      public void editaFuncionario() {
@@ -89,27 +88,27 @@ public class Funcionario {
     	 File arquivo = new File(caminho, getMatricula()+".txt" );
     	    	
     	 if(!(caminho.exists())){
-    	 	 caminho.mkdir();
+            caminho.mkdir();
     	 }
     	 if(arquivo.exists()) {
-    		 try {
-     			arquivo.createNewFile();
-     			
-     			FileWriter fileWriter = new FileWriter(arquivo, false);
-             	PrintWriter printWriter = new PrintWriter(fileWriter);
-             	
-             	printWriter.println(getMatricula());
-             	printWriter.println(getNome());
-             	printWriter.println(getOab());
-             	printWriter.println(Arrays.toString(getLivrosEmprestados()));
-             	printWriter.flush();
-             	
-             	printWriter.close();
-     		}catch(IOException e){
-     			e.printStackTrace();
+            try {
+                arquivo.createNewFile();
+
+                FileWriter fileWriter = new FileWriter(arquivo, false);
+                PrintWriter printWriter = new PrintWriter(fileWriter);
+
+                printWriter.println(getMatricula());
+                printWriter.println(getNome());
+                printWriter.println(getOab());
+                printWriter.println(Arrays.toString(getLivrosEmprestados()));
+                printWriter.flush();
+
+                printWriter.close();
+            } catch(IOException e) {
+                    e.printStackTrace();
      		}
-    	 }else {
-    		 System.out.println("Arquivo especificado não existe.");
+    	 } else {
+            System.out.println("Arquivo especificado nï¿½o existe.");
     	 }
      }
     
@@ -119,9 +118,9 @@ public class Funcionario {
      	 File arquivo = new File(caminho, getMatricula()+".txt" );
      	
      	 if(arquivo.delete()) {
-    		 System.out.println("Deletado aquivo "+arquivo.getName());
-    	 }else {
-    		 System.out.println("Arquivo não existe.");
+            System.out.println("Deletado aquivo "+arquivo.getName());
+    	 } else {
+            System.out.println("Arquivo nï¿½o existe.");
     	 }
      }
     
