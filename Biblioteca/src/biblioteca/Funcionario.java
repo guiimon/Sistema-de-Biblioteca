@@ -25,6 +25,10 @@ public class Funcionario {
         this.nome = nome.toLowerCase();
         this.oab = oab;
     }
+    
+    public Funcionario() {
+    	
+    }
     //para quem NÃO tem OAB
     public Funcionario(String matricula, String nome) {
         this.matricula = matricula;

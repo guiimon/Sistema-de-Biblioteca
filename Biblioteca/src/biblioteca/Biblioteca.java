@@ -21,13 +21,18 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
         if ("secretaria".equals(resp1)) {
             System.out.println("Ola, o que voce deseja fazer?\n"
                          + "cadastrar livro\n"
+                         + "cadastrar Exemplar\n"
                          + "cadastrar funcionario\n"
+                         + "cadastrar Autor\n"
+                         + "cadastrar Editora\n"
                          + "pesquisar livro\n"
                          + "pesquisar funcionario\n"
                          + "emprestar livro\n"
                          + "devolver livro\n");
-            if (comando.equals("cadastrar livro")) {   
-                System.out.println("Digite o codigo do Livro");
+            comando = tecla.nextLine();
+            switch (comando) {
+            case "cadastrar livro":
+            	System.out.println("Digite o codigo do Livro");
                 int codigo = tecla.nextInt();
                 System.out.println("Digite o nome do Livro:");
                 String nome = tecla1.nextLine();
@@ -36,42 +41,72 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                 Autores[] autor = cadastraAutores(qtd, tecla);
                 System.out.println("Digite a editora do Livro:");
                 String editora = tecla.nextLine();
-                System.out.println("Digite a área do Livro:");
+                System.out.println("Digite a area do Livro:");
                 String area = tecla.nextLine();
-                System.out.println("Digite o preço do Livro:");
+                System.out.println("Digite o preco do Livro:");
                 double preco = tecla.nextDouble();
-                System.out.println("Digite o dia de aquisição deste Livro(dd):");
+                System.out.println("Digite o dia de aquisicao deste Livro(dd):");
                 int dia = tecla.nextInt();
-                System.out.println("Digite o mês de aquisição deste Livro(mm):");
+                System.out.println("Digite o mês de aquisicao deste Livro(mm):");
                 int mes = tecla.nextInt();
-                System.out.println("Digite o ano de aquisição deste Livro(yyyy):");
+                System.out.println("Digite o ano de aquisicao deste Livro(yyyy):");
                 int ano = tecla.nextInt();
                 Exemplar e = new Exemplar(codigo, nome, autor, editora, area, preco, dia, mes, ano);
-                b.cadastrar(e);          
-            }
-
-            if (comando.equals("cadastrar funcionario")) {
-                System.out.println("Qual é a matricula do funcionario?");
+                b.cadastrar(e);
+                break;
+                
+            case "cadastrar exemplar":
+            	
+            	break;
+            case "cadastrar funcionario":
+            	System.out.println("Qual e a matricula do funcionario?");
                 String matricula = tecla.nextLine();
                 System.out.println("Qual o nome do funcionario?");
-                String nome = tecla.nextLine();
+                String nomeFun = tecla.nextLine();
                 System.out.println("O funcionario possui OAB?[s]sim ou [n]nao:");
                 String resp = tecla.nextLine();
                 if ("s".equals(resp)) {
                 System.out.println("Digite o número da OAB:");
                 int oab = tecla.nextInt();
-                Funcionario f = new Funcionario(matricula, nome, oab);
+                Funcionario f = new Funcionario(matricula, nomeFun, oab);
                 b.cadastrar(f);
                 System.out.println("Funcionario cadastrado com sucesso.");
                 } else {
-                    Funcionario f = new Funcionario(matricula, nome);
+                    Funcionario f = new Funcionario(matricula, nomeFun);
                     b.cadastrar(f);
                     System.out.println("Funcionario cadastrado com sucesso.");
                 }
-            }
-
-            if (comando.equals("emprestrar livro")) {
-
+                break;
+            case "emprestrar livro":
+            	System.out.println("Qual e a matricula do funcionario que levar� o livro?");
+                matricula = tecla.nextLine();
+                System.out.println("Qual o c�digo do livro que o funcion�rio esta levando?");
+                codigo = tecla.nextInt();
+                Exemplar emprestado = new Exemplar();
+                emprestado.recebeExemplar(codigo);
+                Funcionario recebedor = new Funcionario();
+                recebedor.recebeFuncionario(matricula);
+                emprestarLivro(emprestado, recebedor);
+                break;
+            case "devolver livro":
+            	System.out.println("Qual e a matricula do funcionario que levou o livro?");
+                matricula = tecla.nextLine();
+                System.out.println("Qual o c�digo do livro que o funcion�rio levou?");
+                codigo = tecla.nextInt();
+                emprestado = new Exemplar();
+                emprestado.recebeExemplar(codigo);
+                recebedor = new Funcionario();
+                recebedor.recebeFuncionario(matricula);
+                devolverLivro(emprestado, recebedor);
+                System.out.println("O livro recebido est� utilizavel?");
+                String estado = tecla.nextLine();
+                if(!(estado.equals("sim"))) {
+                	inativar(emprestado);
+                }
+                System.out.println("Devolu��o efetuada com sucesso");
+                emprestado.editaExemplar();
+                recebedor.editaFuncionario();
+                break;
             }
         }
         
@@ -101,10 +136,12 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
     
     public void cadastrar(Exemplar exemplar) {
         biblioteca.add(exemplar);
+        exemplar.registrarExemplar();
     }
 
     public void cadastrar(Funcionario funcionario) {
         usuarios.add(funcionario);
+        funcionario.registraFuncionario();
     }
        
     public void exibirDados(String codigo) {//Sobrecarregado e Sobreposto (Override and Overload)
@@ -117,10 +154,10 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                         "autor : " + exemplar.EscreveAutores() + "\n" +
                         "editora : " + exemplar.getEditora().getNome() + "\n" +
                         "area : " + exemplar.getArea() + "\n" +                        
-                        "data de aquisição : " + formata.format(exemplar.getDataAquisicao().getTime()) + "\n" +
-                        "preço : R$" + exemplar.getPreco()  + "\n" +
+                        "data de aquisicao : " + formata.format(exemplar.getDataAquisicao().getTime()) + "\n" +
+                        "preco : R$" + exemplar.getPreco()  + "\n" +
                         "Foi emprestado? " + exemplar.getEmprestado() + "\n" +
-                        "Está inativo? " + exemplar.getInativo()+ "\n");
+                        "Esta inativo? " + exemplar.getInativo()+ "\n");
     }   
     
     public void exibirDados(Exemplar exemplar) {
@@ -131,20 +168,20 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                 "autor : " + exemplar.EscreveAutores() + "\n" +
                 "editora : " + exemplar.getEditora().getNome() + "\n" +
                 "area : " + exemplar.getArea() + "\n" +                        
-                "data de aquisição : " + formata.format(exemplar.getDataAquisicao().getTime()) + "\n" +
-                "preço : R$" + exemplar.getPreco()  + "\n" +
+                "data de aquisicao : " + formata.format(exemplar.getDataAquisicao().getTime()) + "\n" +
+                "preco : R$" + exemplar.getPreco()  + "\n" +
                 "Foi emprestado? " + exemplar.getEmprestado() + "\n" +
-                "Está inativo? " + exemplar.getInativo()+ "\n");
+                "Esta inativo? " + exemplar.getInativo()+ "\n");
     }
     
     
     public void exibirDados(Funcionario funcionario) {//Sobrecarregado e Sobreposto (Override and Overload)
         try {
-            System.out.println("Funcionário.\n" + 
+            System.out.println("Funcionario.\n" + 
                    "Matricula : " + funcionario.getMatricula() + "\n" +
                    "Nome : " + funcionario.getNome());  
                if (funcionario.getOab() == 0) {
-                   System.out.println("não possui OAB");
+                   System.out.println("nao possui OAB");
                } else {
                    System.out.println("OAB : " + funcionario.getOab());
                } 
@@ -178,7 +215,7 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                 System.out.println("Livros Encontrados:");
                 exibirDados(biblioteca.get(i));
             } else {
-                System.out.println("Livro não encontrado. Não cadastrado ou nome incorreto.");
+                System.out.println("Livro nao encontrado. Nao cadastrado ou nome incorreto.");
             }
         }
     }
@@ -194,7 +231,7 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
             }   
         }
         if(encontrados == 0) {
-            System.out.println("Livro não encontrado. Não cadastrado ou nome incorreto.");
+            System.out.println("Livro nao encontrado. Nao cadastrado ou nome incorreto.");
         }
     }
     
@@ -204,7 +241,7 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                 System.out.println("Editoras Encontrados:");
                 exibirDados(biblioteca.get(i));
             } else {
-                System.out.println("Livro não encontrado. Não cadastrado ou nome incorreto.");
+                System.out.println("Livro nao encontrado. Nao cadastrado ou nome incorreto.");
             }
         }
     }
@@ -215,7 +252,7 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                 System.out.println("Funcionarios Encontrados:");
                 exibirDados(usuarios.get(i));                                   
             } else {
-                System.out.println("Funcionário(a) não encontrado(a). Não cadastrado(a) ou nome incorreto.");
+                System.out.println("Funcionario(a) nao encontrado(a). Nao cadastrado(a) ou nome incorreto.");
             }
             
         }
@@ -231,9 +268,9 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
         formata.format(dataDevolucao.getTime());
         try {
             if (exemplar.getEmprestado() == true) {
-                System.out.println("Este livro já foi emprestado.");
+                System.out.println("Este livro ja foi emprestado.");
             } else if (exemplar.getInativo() == true){
-                System.out.println("Livro inservível. Avariado ou inativo.");
+                System.out.println("Livro inservavel. Avariado ou inativo.");
             } else { 
                 exemplar.setEmprestado(true);
                 for (int i=0; i<funcionario.getLivrosEmprestados().length; i++) {
@@ -242,6 +279,8 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                         break;
                     }
                 }
+                exemplar.editaExemplar();
+                funcionario.editaFuncionario();
             }
             
         } catch (NullPointerException e) {//substituir pelo erro de limite excedido do vetor
