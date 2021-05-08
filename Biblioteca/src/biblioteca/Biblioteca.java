@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
         
-public class Biblioteca {//Essa é a classe Movimentação do UML da prof    
+public class Biblioteca {//Essa é a classe Movimentação do UML  
     //Atributos
     static ArrayList<Exemplar> biblioteca = new ArrayList();
     static ArrayList<Funcionario> usuarios = new ArrayList<>();
@@ -17,7 +17,7 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
         Scanner tecla = new Scanner(System.in);
         Scanner tecla1 = new Scanner(System.in);
         System.out.println("Ola, voce e um funcionario ou secretaria?");
-        String resp1 = tecla1.nextLine();
+        String resp1 = tecla1.nextLine().trim().toLowerCase();
         if ("secretaria".equals(resp1)) {
             System.out.println("Ola, o que voce deseja fazer?\n"
                          + "cadastrar livro\n"
@@ -29,7 +29,7 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                          + "pesquisar funcionario\n"
                          + "emprestar livro\n"
                          + "devolver livro\n");
-            comando = tecla.nextLine();
+            comando = tecla.nextLine().trim().toLowerCase();
             switch (comando) {
             case "cadastrar livro":
             	System.out.println("Digite o codigo do Livro");
@@ -58,6 +58,7 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
             case "cadastrar exemplar":
             	
             	break;
+                
             case "cadastrar funcionario":
             	System.out.println("Qual e a matricula do funcionario?");
                 String matricula = tecla.nextLine();
@@ -77,10 +78,11 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                     System.out.println("Funcionario cadastrado com sucesso.");
                 }
                 break;
+                
             case "emprestrar livro":
-            	System.out.println("Qual e a matricula do funcionario que levar� o livro?");
+            	System.out.println("Qual e a matricula do funcionario que levar� o livro?");
                 matricula = tecla.nextLine();
-                System.out.println("Qual o c�digo do livro que o funcion�rio esta levando?");
+                System.out.println("Qual o codigo do livro que o funcion�rio esta levando?");
                 codigo = tecla.nextInt();
                 Exemplar emprestado = new Exemplar();
                 emprestado.recebeExemplar(codigo);
@@ -88,22 +90,23 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                 recebedor.recebeFuncionario(matricula);
                 emprestarLivro(emprestado, recebedor);
                 break;
+                
             case "devolver livro":
             	System.out.println("Qual e a matricula do funcionario que levou o livro?");
                 matricula = tecla.nextLine();
-                System.out.println("Qual o c�digo do livro que o funcion�rio levou?");
+                System.out.println("Qual o codigo do livro que o funcionario levou?");
                 codigo = tecla.nextInt();
                 emprestado = new Exemplar();
                 emprestado.recebeExemplar(codigo);
                 recebedor = new Funcionario();
                 recebedor.recebeFuncionario(matricula);
                 devolverLivro(emprestado, recebedor);
-                System.out.println("O livro recebido est� utilizavel?");
+                System.out.println("O livro recebido esta utilizavel?");
                 String estado = tecla.nextLine();
                 if(!(estado.equals("sim"))) {
-                	inativar(emprestado);
+                    inativar(emprestado);
                 }
-                System.out.println("Devolu��o efetuada com sucesso");
+                System.out.println("Devolucao efetuada com sucesso");
                 emprestado.editaExemplar();
                 recebedor.editaFuncionario();
                 break;
@@ -127,7 +130,7 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                     String autor = tecla1.nextLine();
                     pesquisarAutor(autor);
                 case 3:
-                    System.out.println("Digite o editora do livro:\n");
+                    System.out.println("Digite a editora do livro:\n");
                     String editora = tecla1.nextLine();
                     pesquisarEditora(editora);                       
             }  
@@ -144,7 +147,7 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
         funcionario.registraFuncionario();
     }
        
-    public void exibirDados(String codigo) {//Sobrecarregado e Sobreposto (Override and Overload)
+    public void exibirDados(String codigo) {
         SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
         Exemplar exemplar = new Exemplar();
         exemplar.recebeExemplar(Integer.parseInt(codigo)); 
@@ -173,9 +176,8 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                 "Foi emprestado? " + exemplar.getEmprestado() + "\n" +
                 "Esta inativo? " + exemplar.getInativo()+ "\n");
     }
-    
-    
-    public void exibirDados(Funcionario funcionario) {//Sobrecarregado e Sobreposto (Override and Overload)
+       
+    public void exibirDados(Funcionario funcionario) {
         try {
             System.out.println("Funcionario.\n" + 
                    "Matricula : " + funcionario.getMatricula() + "\n" +
