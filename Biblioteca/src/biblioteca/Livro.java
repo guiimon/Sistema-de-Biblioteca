@@ -67,7 +67,7 @@ public class Livro {
     }
     
      public void registrarLivro() {
-    	File caminho = new File("C:\\Biblioteca\\Livro");
+    	File caminho = new File("C:\\Biblioteca\\livro");
     	File arquivo = new File(caminho, String.valueOf(getCodigo())+".txt" );
     	if(!(caminho.exists())); caminho.mkdir();
     	if(!(arquivo.exists())) {
@@ -97,7 +97,7 @@ public class Livro {
     }
      
      public void recebeLivro(int codigo) {
-    	String caminho = "C:\\Biblioteca\\Livro";
+    	String caminho = "C:\\Biblioteca\\livro";
       	File arquivo = new File(caminho, codigo+".txt" );
     	if(arquivo.exists()) {
             try {
@@ -120,7 +120,7 @@ public class Livro {
     }
     
     public void editaLivro() {
-    	File caminho = new File("C:\\Biblioteca\\Livro");
+    	File caminho = new File("C:\\Biblioteca\\livro");
     	File arquivo = new File(caminho, String.valueOf(getCodigo())+".txt" );
     	
     	if(!(caminho.exists())){
@@ -153,7 +153,7 @@ public class Livro {
     }
     
     public void excluirLivro() {
-    	File caminho = new File("C:\\Biblioteca\\Livro");
+    	File caminho = new File("C:\\Biblioteca\\livro");
     	File arquivo = new File(caminho, getCodigo()+".txt" );
     	if(arquivo.delete()) {
             System.out.println("Deletado aquivo "+arquivo.getName());

@@ -307,7 +307,7 @@ public class Biblioteca {//Essa é a classe Movimentação do UML
                 ler.close(); 
                 
             } catch (IOException e) {
-                System.out.println(e.toString());                
+                e.printStackTrace();                
             }         
         }
         if (n == 0) {
