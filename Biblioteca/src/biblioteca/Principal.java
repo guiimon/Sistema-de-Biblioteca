@@ -15,13 +15,17 @@ public class Principal {
         b.cadastrar(f0);         
         
         String resposta = "";
-        while (!"n".equals(resposta)) {
+        int i = 1;
+        while (i != 0) {
             System.out.println("Pressione enter para iniciar.");
             Scanner tecla = new Scanner(System.in);           
             String comando = tecla.nextLine();
             b.executar(comando, b);           
             System.out.println("Continuar? sim[s] ou nao[n] :");
             resposta = tecla.nextLine();
+            if (resposta.equals("n")) {
+                break;
+            }
         }
         System.out.println("");
         System.out.println("Sistema encerrado.");   

@@ -55,7 +55,7 @@ public class Funcionario {
             	printWriter.flush();
             	
             	printWriter.close();
-            }catch(IOException e){
+            } catch(IOException e) {
                 e.printStackTrace();
             }
     	}
