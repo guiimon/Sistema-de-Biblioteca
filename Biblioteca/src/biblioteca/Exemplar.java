@@ -34,28 +34,18 @@ public class Exemplar extends Livro {
     	
     }
     
-    //metodos princiais
-    public void pesquisar() {
-        
-    }
+    //metodos princiais   
     
     public void registrarExemplar() {
-    	File caminho = new File("C:\\Biblioteca\\Exemplar");
+    	File caminho = new File("C:/Biblioteca/exemplar");
     	File arquivo = new File(caminho, String.valueOf(getCodigo())+".txt" );
     	if(!(caminho.exists())); caminho.mkdir();
     	if(!(arquivo.exists())) {
-    		try {
+            try {
             
             	arquivo.createNewFile();
             
-            	/*
-            	O false apagaria o conteúdo do arquivo e escreveria
-            	o novo conteúdo.
-            	Se não usar o 2° parâmetro, ele por padrão será false.
-            	O mais importante, essa linha abre o fluxo do arquivo
-             	*/
             	FileWriter fileWriter = new FileWriter(arquivo, true);
-            
             	PrintWriter printWriter = new PrintWriter(fileWriter);
             	
             	printWriter.println(getCodigo());
@@ -74,69 +64,61 @@ public class Exemplar extends Livro {
             	//No final precisamos fechar o arquivo
             	printWriter.close();
             
-        	} catch (IOException e) {
-            	e.printStackTrace();
-        	}
-    	}else {
-    		System.out.println("Arquivo com o c�digo j� criado.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    	} else {
+            System.out.println("Arquivo com o codigo ja criado.");
     	}
     }
     
     public void recebeExemplar(int codigo) {
-    	String caminho = "C:\\Biblioteca\\Exemplar";
+    	String caminho = "C:/Biblioteca/exemplar";
       	File arquivo = new File(caminho, codigo+".txt" );
     	if(arquivo.exists()) {
-    		try {
-				BufferedReader br = new BufferedReader(new FileReader(caminho+ "/" + codigo+".txt"));
-				setCodigo(Integer.parseInt(br.readLine()));
-				setNome(br.readLine());
-				setAutor(criaAutores(br.readLine()));
-				setEditora(new Editora(br.readLine()));
-				setArea(br.readLine());
-				String[] data = br.readLine().split("/");
-				Integer[] dataint = new Integer[data.length];
-				for (int i=0; i<data.length; i++) {
-					dataint[i] = Integer.parseInt(data[i]);
-				}
-				dataAquisicao = Calendar.getInstance();  
-	        	dataAquisicao.set(dataint[0], dataint[1], dataint[2]);
-				setPreco(Double.parseDouble(br.readLine()));
-				setInativo(Boolean.parseBoolean(br.readLine()));
-				setEmprestado(Boolean.parseBoolean(br.readLine()));
-			
-				br.close();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {	
-				e.printStackTrace();
-			}
-    	}
-    	else {
-    		System.out.println("Caminho especificado n�o existe.");
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(caminho+ "/" + codigo+".txt"));
+                setCodigo(Integer.parseInt(br.readLine()));
+                setNome(br.readLine());
+                setAutor(criaAutores(br.readLine()));
+                setEditora(new Editora(br.readLine()));
+                setArea(br.readLine());
+                String[] data = br.readLine().split("/");
+                Integer[] dataint = new Integer[data.length];
+                for (int i=0; i<data.length; i++) {
+                    dataint[i] = Integer.parseInt(data[i]);
+                }
+                dataAquisicao = Calendar.getInstance();  
+                dataAquisicao.set(dataint[0], dataint[1], dataint[2]);
+                setPreco(Double.parseDouble(br.readLine()));
+                setInativo(Boolean.parseBoolean(br.readLine()));
+                setEmprestado(Boolean.parseBoolean(br.readLine()));
+
+                br.close();
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {	
+                e.printStackTrace();
+            }
+    	} else {
+            System.out.println("Caminho especificado nao existe.");
     	}
     }
     
     public void editaExemplar() {
-    	File caminho = new File("C:\\Biblioteca\\Exemplar");
+    	File caminho = new File("C:/Biblioteca/exemplar");
     	File arquivo = new File(caminho, String.valueOf(getCodigo())+".txt" );
     	
     	if(!(caminho.exists())){
-    		caminho.mkdir();
+            caminho.mkdir();
     	}
     	if(arquivo.exists()) {
-    			try {
+            try {
             
             	arquivo.createNewFile();
-            
-            	/*
-            	O false apagaria o conteúdo do arquivo e escreveria
-            	o novo conteúdo.
-            	Se não usar o 2° parâmetro, ele por padrão será false.
-            	O mais importante, essa linha abre o fluxo do arquivo
-             	*/
-            	FileWriter fileWriter = new FileWriter(arquivo, false);
-            
+                       	
+            	FileWriter fileWriter = new FileWriter(arquivo, false);            
             	PrintWriter printWriter = new PrintWriter(fileWriter);
             
             	printWriter.println(getCodigo());
@@ -152,24 +134,23 @@ public class Exemplar extends Livro {
             
             	printWriter.flush();
             
-            	//No final precisamos fechar o arquivo
             	printWriter.close();
             
-        	} catch (IOException e) {
-            	e.printStackTrace();
-        	}
-    	}else {
-    		System.out.println("Arquivo especificado n�o existe.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    	} else {
+            System.out.println("Arquivo especificado nao existe.");
     	}
     }
     
     public void excluirExemplar() {
-    	File caminho = new File("C:\\Biblioteca\\Exemplar");
+    	File caminho = new File("C:/Biblioteca/exemplar");
     	File arquivo = new File(caminho, getCodigo()+".txt" );
     	if(arquivo.delete()) {
-    		System.out.println("Deletado aquivo "+arquivo.getName());
-    	}else {
-    		System.out.println("Arquivo n�o existe.");
+            System.out.println("Deletado aquivo "+arquivo.getName());
+    	} else {
+            System.out.println("Arquivo nao existe.");
     	}
     }
     

@@ -4,32 +4,32 @@ import java.io.File;
 
 public class CriaDiretorios {
 	public CriaDiretorios() {
-		File dir = new File("c:\\biblioteca");
+		File dir = new File("C:/Biblioteca");
 		if(!dir.exists()) {
 			dir.mkdir();
 		}
 		
-		dir = new File("c:\\biblioteca\\autor");
+		dir = new File("C:/Biblioteca/autor");
 		if(!dir.exists()) {
 			dir.mkdir();
 		}
 		
-		dir = new File("c:\\biblioteca\\livros");
+		dir = new File("C:/Biblioteca/livro");
 		if(!dir.exists()) {
 			dir.mkdir();
 		}
 		
-		dir = new File("c:\\biblioteca\\exemplar");
+		dir = new File("C:/Biblioteca/exemplar");
 		if(!dir.exists()) {
 			dir.mkdir();
 		}
 		
-		dir = new File("c:\\biblioteca\\editora");
+		dir = new File("C:/Biblioteca/editora");
 		if(!dir.exists()) {
 			dir.mkdir();
 		}
 		
-		dir = new File("c:\\biblioteca\\funcionario");
+		dir = new File("C:/Biblioteca/funcionario");
 		if(!dir.exists()) {
 			dir.mkdir();
 		}

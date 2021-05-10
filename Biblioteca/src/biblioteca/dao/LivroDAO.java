@@ -82,4 +82,27 @@ public class LivroDAO {
         }
     }
     
+    /*
+        Livro livro = new Livro();
+        //LivroDAO livroDao = new LivroDAO();
+        
+        
+            // ---- REGISTRO DE LIVROS ---- //
+        livro.setCodigo(75);
+        livro.setNome("Tratado de direito penal");
+        Autores[] lista = new Autores[1];
+        lista[0] = new Autores("Cezar Roberto Bitencourt");
+        livro.setAutor(lista);
+        livro.setEditora(new Editora("Saraiva"));
+        livro.setArea("Direito Penal");
+        //livroDao.registrarLivro(livro);
+        //livroDao.listarLivros();
+        
+        l0.registrarExemplar();
+        Exemplar l2 = new Exemplar();        
+        l2.recebeExemplar(4161);
+        //l2.excluirExemplar();
+        System.out.println(l2.getCodigo());
+        System.out.println(new String[1].toString());
+       */ 
 }

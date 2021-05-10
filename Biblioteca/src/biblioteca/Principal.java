@@ -1,9 +1,7 @@
 
 package biblioteca;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.util.Scanner;
 
 public class Principal {
     public static void main(String[] args) {//Classe Movimentação do diagrama UML
@@ -14,54 +12,24 @@ public class Principal {
         Funcionario f0 = new Funcionario("ADV01", "Demolidor");      
         Biblioteca b = new Biblioteca();
         b.cadastrar(l0);
-        b.cadastrar(f0);
-
-        //exibirDados(l0);
-        b.emprestarLivro(l0, f0);
-        b.emprestarLivro(l0, f0);
-        b.emprestarLivro(l0, f0);
-        b.emprestarLivro(l0, f0);
-        b.emprestarLivro(l0, f0);
-        b.emprestarLivro(l0, f0);
-        b.emprestarLivro(l0, f0);
-        //pesquisarLivro("7 Advogados e um cliente");
-        //pesquisarFuncionario("Demolidor");
-        b.exibirDados(f0);
-        /*String resposta = "";
-        while (!"n".equals(resposta)) {
-            System.out.println("O que deseja fazer?");
-            Scanner tecla = new Scanner(System.in);
-            
+        b.cadastrar(f0);         
+        
+        String resposta = "";
+        int i = 1;
+        while (i != 0) {
+            System.out.println("Pressione enter para iniciar.");
+            Scanner tecla = new Scanner(System.in);           
             String comando = tecla.nextLine();
-            b.executar(comando, b);
-            b.pesquisarLivro("big");
-            System.out.println("Continuar?");
+            b.executar(comando, b);           
+            System.out.println("Continuar? sim[s] ou nao[n] :");
             resposta = tecla.nextLine();
-        }*/
-        
-        Livro livro = new Livro();
-        //LivroDAO livroDao = new LivroDAO();
-        
-        
-            // ---- REGISTRO DE LIVROS ---- //
-        livro.setCodigo(75);
-        livro.setNome("Tratado de direito penal");
-        Autores[] lista = new Autores[1];
-        lista[0] = new Autores("Cezar Roberto Bitencourt");
-        livro.setAutor(lista);
-        livro.setEditora(new Editora("Saraiva"));
-        livro.setArea("Direito Penal");
-        //livroDao.registrarLivro(livro);
-        //livroDao.listarLivros();
-        
-        l0.registrarExemplar();
-        Exemplar l2 = new Exemplar();
-        
-		l2.recebeExemplar(4161);
-		//l2.excluirExemplar();
-        System.out.println(l2.getCodigo());
-        System.out.println(new String[1].toString());
-        
+            if (resposta.equals("n")) {
+                break;
+            }
+        }
+        System.out.println("");
+        System.out.println("Sistema encerrado.");   
     }
+    
     
 }

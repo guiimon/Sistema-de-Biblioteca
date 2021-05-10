@@ -38,7 +38,7 @@ public class Funcionario {
     
     //metodos
     public void registraFuncionario() {
-    	File caminho = new File("C:\\biblioteca\\funcionario");
+    	File caminho = new File("C:/biblioteca/funcionario");
     	File arquivo = new File(caminho, getMatricula()+".txt" );
     	if(!(caminho.exists())); caminho.mkdir();
     	if(!(arquivo.exists())) {
@@ -55,14 +55,14 @@ public class Funcionario {
             	printWriter.flush();
             	
             	printWriter.close();
-            }catch(IOException e){
+            } catch(IOException e) {
                 e.printStackTrace();
             }
     	}
     }
     
     public void recebeFuncionario(String matricula) {
-    	String caminho = "C:\\Biblioteca\\funcionario";
+    	String caminho = "C:/Biblioteca/funcionario";
       	File arquivo = new File(caminho, matricula+".txt" );
     	if(arquivo.exists()) {
             try {
@@ -88,7 +88,7 @@ public class Funcionario {
     
      public void editaFuncionario() {
     	 
-    	 File caminho = new File("C:\\Biblioteca\\funcionario");
+    	 File caminho = new File("C:/Biblioteca/funcionario");
     	 File arquivo = new File(caminho, getMatricula()+".txt" );
     	    	
     	 if(!(caminho.exists())){
@@ -118,13 +118,13 @@ public class Funcionario {
     
      public void excluirFuncionario() {
     	 
-    	 File caminho = new File("C:\\Biblioteca\\funcionario");
+    	 File caminho = new File("C:/Biblioteca/funcionario");
      	 File arquivo = new File(caminho, getMatricula()+".txt" );
      	
      	 if(arquivo.delete()) {
             System.out.println("Deletado aquivo "+arquivo.getName());
     	 } else {
-            System.out.println("Arquivo n�o existe.");
+            System.out.println("Arquivo nao existe.");
     	 }
      }
     

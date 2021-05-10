@@ -30,67 +30,67 @@ public class Autores {
     	
     	if(!(caminho.exists())); caminho.mkdir();
     	if(!(arquivo.exists())) {
-    		try {
-    			arquivo.createNewFile();
-    			
-    			FileWriter fileWriter = new FileWriter(arquivo, true);
-            	PrintWriter printWriter = new PrintWriter(fileWriter);
-            	
-            	printWriter.println(getNome());
-            	printWriter.flush();
-            	
-            	printWriter.close();
-    		}catch(IOException e){
-    			e.printStackTrace();
-    		}
+            try {
+                arquivo.createNewFile();
+
+                FileWriter fileWriter = new FileWriter(arquivo, true);
+                PrintWriter printWriter = new PrintWriter(fileWriter);
+
+                printWriter.println(getNome());
+                printWriter.flush();
+
+                printWriter.close();
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
     	}
     }
    
    public void recebeAutor(String nome) {
-	   File caminho = new File("C:\\biblioteca\\autor");
-	   File arquivo = new File(caminho, nome+".txt" );
-	   
-	   if(arquivo.exists()) {
-		   try {
-			   
-			   BufferedReader br = new BufferedReader(new FileReader(caminho+ "/" + nome+".txt"));
-			   setNome(br.readLine());
-				br.close();
-		   } catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {	
-				e.printStackTrace();
-			}
-	   }else {
-		   System.out.println("Caminho especificado não existe.");
-	   }
+        File caminho = new File("C:\\biblioteca\\autor");
+        File arquivo = new File(caminho, nome+".txt" );
+
+        if(arquivo.exists()) {
+            try {
+
+                BufferedReader br = new BufferedReader(new FileReader(caminho+ "/" + nome+".txt"));
+                setNome(br.readLine());
+                br.close();
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {	
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Caminho especificado nï¿½o existe.");
+        }
    }
     
    public void editaAutor() {
-	   File caminho = new File("C:\\biblioteca\\autor");
-	   File arquivo = new File(caminho, getNome()+".txt" );
-	   
-	   if(!(caminho.exists())){
-  	 	 caminho.mkdir();
-  	 }
-  	 if(arquivo.exists()) {
-  		 try {
-  			arquivo.createNewFile();
- 			
- 			FileWriter fileWriter = new FileWriter(arquivo, false);
-         	PrintWriter printWriter = new PrintWriter(fileWriter);
-         	
-         	printWriter.println(getNome());
-         	printWriter.flush();
-         	
-         	printWriter.close();
-  		 } catch(IOException e){
-  			e.printStackTrace();
-  		 }
-  	 }else {
-  		System.out.println("Arquivo especificado não existe.");
-  	 }
+        File caminho = new File("C:\\biblioteca\\autor");
+        File arquivo = new File(caminho, getNome()+".txt" );
+
+        if(!(caminho.exists())){
+            caminho.mkdir();
+        }
+        if(arquivo.exists()) {
+            try {
+                arquivo.createNewFile();
+
+                FileWriter fileWriter = new FileWriter(arquivo, false);
+                PrintWriter printWriter = new PrintWriter(fileWriter);
+
+                printWriter.println(getNome());
+                printWriter.flush();
+
+                printWriter.close();
+            } catch(IOException e){
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Arquivo especificado nao existe.");
+      }
    }
    
    public void excluirAutor() {
@@ -99,10 +99,10 @@ public class Autores {
    	 File arquivo = new File(caminho, getNome()+".txt" );
    	
    	 if(arquivo.delete()) {
-  		 System.out.println("Deletado aquivo "+arquivo.getName());
-  	 }else {
-  		 System.out.println("Arquivo não existe.");
-  	 }
+            System.out.println("Deletado aquivo "+arquivo.getName());
+        } else {
+            System.out.println("Arquivo nï¿½o existe.");
+  	}
    }
    
     @Override

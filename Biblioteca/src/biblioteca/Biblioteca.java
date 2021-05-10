@@ -1,14 +1,18 @@
 package biblioteca;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
         
-public class Biblioteca {//Essa é a classe Movimentação do UML da prof    
+public class Biblioteca {//Essa é a classe Movimentação do UML  
     //Atributos
-    static ArrayList<Exemplar> biblioteca = new ArrayList();
-    static ArrayList<Funcionario> usuarios = new ArrayList<>();
+    //static ArrayList<Exemplar> biblioteca = new ArrayList();
+    //static ArrayList<Funcionario> usuarios = new ArrayList<>();
     private  Calendar dataEmprestimo; //Calendar é superior ao Date
     private  Calendar dataDevolucao;
     
@@ -17,19 +21,20 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
         Scanner tecla = new Scanner(System.in);
         Scanner tecla1 = new Scanner(System.in);
         System.out.println("Ola, voce e um funcionario ou secretaria?");
-        String resp1 = tecla1.nextLine();
+        String resp1 = tecla1.nextLine().trim().toLowerCase();
         if ("secretaria".equals(resp1)) {
-            System.out.println("Ola, o que voce deseja fazer?\n"
+            System.out.println("O que deseja fazer?\n"
                          + "cadastrar livro\n"
-                         + "cadastrar Exemplar\n"
+                         + "cadastrar exemplar\n"
                          + "cadastrar funcionario\n"
-                         + "cadastrar Autor\n"
-                         + "cadastrar Editora\n"
+                         //+ "cadastrar Autor\n"
+                         //+ "cadastrar Editora\n"
                          + "pesquisar livro\n"
+                         + "pesquisar exemplar\n"
                          + "pesquisar funcionario\n"
                          + "emprestar livro\n"
                          + "devolver livro\n");
-            comando = tecla.nextLine();
+            comando = tecla.nextLine().trim().toLowerCase();
             switch (comando) {
             case "cadastrar livro":
             	System.out.println("Digite o codigo do Livro");
@@ -47,17 +52,40 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                 double preco = tecla.nextDouble();
                 System.out.println("Digite o dia de aquisicao deste Livro(dd):");
                 int dia = tecla.nextInt();
-                System.out.println("Digite o mês de aquisicao deste Livro(mm):");
+                System.out.println("Digite o mes de aquisicao deste Livro(mm):");
                 int mes = tecla.nextInt();
-                System.out.println("Digite o ano de aquisicao deste Livro(yyyy):");
+                System.out.println("Digite o ano de aquisicao deste Livro(aaaa):");
                 int ano = tecla.nextInt();
-                Exemplar e = new Exemplar(codigo, nome, autor, editora, area, preco, dia, mes, ano);
-                b.cadastrar(e);
+                Livro l = new Livro(codigo, nome, autor, editora, area);
+                Livro e = new Exemplar(codigo, nome, autor, editora, area, preco, dia, mes, ano);
+                b.cadastrar(l);
+                b.cadastrar(e);                
                 break;
                 
             case "cadastrar exemplar":
-            	
+            	System.out.println("Digite o codigo do Livro");
+                int codigoE = tecla.nextInt();
+                System.out.println("Digite o nome do Livro:");
+                String nomeE = tecla1.nextLine();
+                System.out.println("Digite a quantidade de autores do livro:");
+                int qtdE = tecla.nextInt();
+                Autores[] autorE = cadastraAutores(qtdE, tecla);
+                System.out.println("Digite a editora do Livro:");
+                String editoraE = tecla.nextLine();
+                System.out.println("Digite a area do Livro:");
+                String areaE = tecla.nextLine();
+                System.out.println("Digite o preco do Livro:");
+                double precoE = tecla.nextDouble();
+                System.out.println("Digite o dia de aquisicao deste Livro(dd):");
+                int diaE = tecla.nextInt();
+                System.out.println("Digite o mes de aquisicao deste Livro(mm):");
+                int mesE = tecla.nextInt();
+                System.out.println("Digite o ano de aquisicao deste Livro(aaaa):");
+                int anoE = tecla.nextInt();               
+                Livro eE = new Exemplar(codigoE, nomeE, autorE, editoraE, areaE, precoE, diaE, mesE, anoE);                
+                b.cadastrar(eE);                
             	break;
+                
             case "cadastrar funcionario":
             	System.out.println("Qual e a matricula do funcionario?");
                 String matricula = tecla.nextLine();
@@ -77,10 +105,11 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                     System.out.println("Funcionario cadastrado com sucesso.");
                 }
                 break;
+                
             case "emprestrar livro":
-            	System.out.println("Qual e a matricula do funcionario que levar� o livro?");
+            	System.out.println("Qual e a matricula do funcionario que levara o livro?");
                 matricula = tecla.nextLine();
-                System.out.println("Qual o c�digo do livro que o funcion�rio esta levando?");
+                System.out.println("Qual o codigo do livro que o funcionario esta levando?");
                 codigo = tecla.nextInt();
                 Exemplar emprestado = new Exemplar();
                 emprestado.recebeExemplar(codigo);
@@ -88,25 +117,64 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                 recebedor.recebeFuncionario(matricula);
                 emprestarLivro(emprestado, recebedor);
                 break;
+                
             case "devolver livro":
             	System.out.println("Qual e a matricula do funcionario que levou o livro?");
                 matricula = tecla.nextLine();
-                System.out.println("Qual o c�digo do livro que o funcion�rio levou?");
+                System.out.println("Qual o codigo do livro que o funcionario levou?");
                 codigo = tecla.nextInt();
                 emprestado = new Exemplar();
                 emprestado.recebeExemplar(codigo);
                 recebedor = new Funcionario();
                 recebedor.recebeFuncionario(matricula);
                 devolverLivro(emprestado, recebedor);
-                System.out.println("O livro recebido est� utilizavel?");
+                System.out.println("O livro recebido esta utilizavel?");
                 String estado = tecla.nextLine();
                 if(!(estado.equals("sim"))) {
-                	inativar(emprestado);
+                    inativar(emprestado);
                 }
-                System.out.println("Devolu��o efetuada com sucesso");
+                System.out.println("Devolucao efetuada com sucesso");
                 emprestado.editaExemplar();
                 recebedor.editaFuncionario();
                 break;
+                
+            case "pesquisar livro":
+                System.out.println("Como voce deseja pesquisar?\n"
+                             + "[1]pesquisar livro pelo titulo\n"
+                             + "[2]pesquisar livro pelo autor\n"
+                             + "[3]pesquisar livro pelo editora\n"
+                             + "Digite o numero da opçao desejada:");
+                int opcaoL = tecla1.nextInt();
+                switch (opcaoL) {
+                    case 1:
+                        System.out.println("Digite o titulo do livro:\n");
+                        String tituloL = tecla1.nextLine();
+                        pesquisar("C:\\Biblioteca\\livros", tituloL);
+                        break;
+                    case 2:
+                        System.out.println("Digite o autor do livro:\n");
+                        String autorL = tecla1.nextLine();
+                        pesquisar("C:\\Biblioteca\\livros", autorL);
+                        break;
+                    case 3:
+                        System.out.println("Digite a editora do livro:\n");
+                        String editoraL = tecla1.nextLine();
+                        pesquisar("C:\\Biblioteca\\livros", editoraL); 
+                        break;
+                }  
+                break;
+                
+             case "pesquisar exemplar":
+                System.out.println("Digite o título do exemplar:");
+                String tituloE = tecla1.nextLine();
+                pesquisar("C:/Biblioteca/exemplar", tituloE);
+                break; 
+                
+             case "pesquisar funcionario":
+                System.out.println("Digite o nome do funcionario:");
+                String nomeF = tecla1.nextLine();
+                pesquisar("C:/Biblioteca/funcionario", nomeF);
+                break;    
             }
         }
         
@@ -121,30 +189,37 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                 case 1:
                     System.out.println("Digite o titulo do livro:\n");
                     String titulo = tecla1.nextLine();
-                    pesquisarLivro(titulo);
+                    pesquisar("C:/Biblioteca/livro", titulo);
+                    break;
                 case 2:
                     System.out.println("Digite o autor do livro:\n");
                     String autor = tecla1.nextLine();
-                    pesquisarAutor(autor);
+                    pesquisar("C:/Biblioteca/livro", autor);
+                    break;
                 case 3:
-                    System.out.println("Digite o editora do livro:\n");
+                    System.out.println("Digite a editora do livro:\n");
                     String editora = tecla1.nextLine();
-                    pesquisarEditora(editora);                       
+                    pesquisar("C:/Biblioteca/livro", editora);
+                    break;
             }  
         }  
     }
     
-    public void cadastrar(Exemplar exemplar) {
-        biblioteca.add(exemplar);
-        exemplar.registrarExemplar();
+    public void cadastrar(Livro livro) {        
+        livro.registrarLivro();
     }
 
+    public void cadastrar(Exemplar exemplar) {
+        //biblioteca.add(exemplar);
+        exemplar.registrarExemplar();
+    }
+    
     public void cadastrar(Funcionario funcionario) {
-        usuarios.add(funcionario);
+        //usuarios.add(funcionario);
         funcionario.registraFuncionario();
     }
        
-    public void exibirDados(String codigo) {//Sobrecarregado e Sobreposto (Override and Overload)
+    public void exibirDados(String codigo) {
         SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
         Exemplar exemplar = new Exemplar();
         exemplar.recebeExemplar(Integer.parseInt(codigo)); 
@@ -160,6 +235,15 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                         "Esta inativo? " + exemplar.getInativo()+ "\n");
     }   
     
+    public void exibirDados(Livro livro) {
+    	System.out.println("Livro.\n" + 
+                "codigo : " + livro.getCodigo() + "\n" +
+                "nome : " + livro.getNome() + "\n" +
+                "autor : " + livro.EscreveAutores() + "\n" +
+                "editora : " + livro.getEditora().getNome() + "\n" +
+                "area : " + livro.getArea() + "\n");
+    }
+    
     public void exibirDados(Exemplar exemplar) {
     	SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
     	System.out.println("Livro.\n" + 
@@ -173,9 +257,8 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
                 "Foi emprestado? " + exemplar.getEmprestado() + "\n" +
                 "Esta inativo? " + exemplar.getInativo()+ "\n");
     }
-    
-    
-    public void exibirDados(Funcionario funcionario) {//Sobrecarregado e Sobreposto (Override and Overload)
+       
+    public void exibirDados(Funcionario funcionario) {
         try {
             System.out.println("Funcionario.\n" + 
                    "Matricula : " + funcionario.getMatricula() + "\n" +
@@ -199,64 +282,56 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
             System.out.println("Nenhum livro emprestado\n");
         } 
     } 
-          
-    public void livrosEmprestados() {//para as secretarias visualizarem os nome dos livros que foram emprestados
-        System.out.println("Livros que foram emprestados:");
-        for (int i=0; i<=biblioteca.size(); i++) {
-            if (biblioteca.get(i).getEmprestado() == true) {
-                System.out.println(biblioteca.get(i).getNome() +" | "+ biblioteca.get(i).getCodigo());
-            }
+    
+    public void pesquisar(String caminho, String nome) {
+        File arquivo = new File(caminho);                  
+                              //listFiles retorna um vetor
+        File lista [] = arquivo.listFiles();//o vetor "lista" recebe o vetor de "arquivo". 
+        int n = 0;        
+        for (int i=0; i<lista.length; i++) {
+            try {         
+                FileReader ler = new FileReader(lista[i]);
+                BufferedReader lerb = new BufferedReader(ler);
+                String linha = "";
+                
+                while ( (linha = lerb.readLine()) != null ) {
+                    if (linha.equals(nome.toLowerCase())) {
+                        System.out.println("");
+                        ler(lista[i]); 
+                        System.out.println("");
+                        n++;
+                    }                                                  
+                }
+                
+                lerb.close();
+                ler.close(); 
+                
+            } catch (IOException e) {
+                e.printStackTrace();                
+            }         
         }
+        if (n == 0) {
+            System.out.println("Não encontrado. Nao cadastrado ou nome incorreto.\n");
+        }                   
     }
     
-    public void pesquisarLivro(String nome) {
-        for (int i=0; i<biblioteca.size(); i++) {
-            if (biblioteca.get(i).getNome().equals(nome.toLowerCase())) {
-                System.out.println("Livros Encontrados:");
-                exibirDados(biblioteca.get(i));
-            } else {
-                System.out.println("Livro nao encontrado. Nao cadastrado ou nome incorreto.");
-            }
-        }
-    }
-    
-    public void pesquisarAutor(String nome) {
-    	int encontrados = 0;
-        for (int i=0; i<biblioteca.size(); i++) {
-        	for (int j=0; j<biblioteca.get(i).getAutor().length; j++)
-            if (biblioteca.get(i).getAutor()[i].getNome().equals(nome.toLowerCase())) {
-                System.out.println("Autores Encontrados:");
-                exibirDados(biblioteca.get(i));
-                encontrados++;
-            }   
-        }
-        if(encontrados == 0) {
-            System.out.println("Livro nao encontrado. Nao cadastrado ou nome incorreto.");
-        }
-    }
-    
-    public void pesquisarEditora(String nome) {
-        for (int i=0; i<biblioteca.size(); i++) {
-            if (biblioteca.get(i).getEditora().getNome().equals(nome.toLowerCase())) {
-                System.out.println("Editoras Encontrados:");
-                exibirDados(biblioteca.get(i));
-            } else {
-                System.out.println("Livro nao encontrado. Nao cadastrado ou nome incorreto.");
-            }
-        }
-    }
-     
-    public void pesquisarFuncionario(String nome) {    
-        for (int i=0; i<usuarios.size(); i++) {          
-            if (usuarios.get(i).getNome().toLowerCase().equals(nome.toLowerCase())) {
-                System.out.println("Funcionarios Encontrados:");
-                exibirDados(usuarios.get(i));                                   
-            } else {
-                System.out.println("Funcionario(a) nao encontrado(a). Nao cadastrado(a) ou nome incorreto.");
-            }
+    public void ler(File caminho) {
+        try {            
+            FileReader ler = new FileReader(caminho);
+            BufferedReader lerb = new BufferedReader(ler);
+            String linha = "";
             
+             while ((linha = lerb.readLine()) != null ) {
+                System.out.println(linha);
+            }            
+            lerb.close();
+            ler.close();           
+            
+        } catch (IOException e) {
+            System.out.println("Erro ao ler arquivo: ");
+            e.printStackTrace();
         }
-    }
+    }            
 
     public void emprestarLivro(Exemplar exemplar, Funcionario funcionario) {
         dataEmprestimo = Calendar.getInstance();//pega a data atual
@@ -292,8 +367,8 @@ public class Biblioteca {//Essa é a classe Movimentação do UML da prof
     public void devolverLivro(Exemplar exemplar, Funcionario funcionario) {
         exemplar.setEmprestado(false);
         for (int i=0; i<4; i++) {
-            if (funcionario.getLivrosEmprestados()[i].equals(Integer.toString(exemplar.getCodigo()))) {//
-                funcionario.getLivrosEmprestados()[i] = null;  //
+            if (funcionario.getLivrosEmprestados()[i].equals(Integer.toString(exemplar.getCodigo()))) {
+                funcionario.getLivrosEmprestados()[i] = null;  
             }
         }
     }
