@@ -167,13 +167,13 @@ public class Biblioteca {//Essa é a classe Movimentação do UML
              case "pesquisar exemplar":
                 System.out.println("Digite o título do exemplar:");
                 String tituloE = tecla1.nextLine();
-                pesquisar("c:/Biblioteca/exemplar", tituloE);
+                pesquisar("C:/Biblioteca/exemplar", tituloE);
                 break; 
                 
              case "pesquisar funcionario":
                 System.out.println("Digite o nome do funcionario:");
                 String nomeF = tecla1.nextLine();
-                pesquisar("c:/Biblioteca/funcionario", nomeF);
+                pesquisar("C:/Biblioteca/funcionario", nomeF);
                 break;    
             }
         }
@@ -189,17 +189,17 @@ public class Biblioteca {//Essa é a classe Movimentação do UML
                 case 1:
                     System.out.println("Digite o titulo do livro:\n");
                     String titulo = tecla1.nextLine();
-                    pesquisar("C:\\Biblioteca\\Livros", titulo);
+                    pesquisar("C:/Biblioteca/livro", titulo);
                     break;
                 case 2:
                     System.out.println("Digite o autor do livro:\n");
                     String autor = tecla1.nextLine();
-                    pesquisar("C:\\Biblioteca\\Livros", autor);
+                    pesquisar("C:/Biblioteca/livro", autor);
                     break;
                 case 3:
                     System.out.println("Digite a editora do livro:\n");
                     String editora = tecla1.nextLine();
-                    pesquisar("C:\\Biblioteca\\Livros", editora);
+                    pesquisar("C:/Biblioteca/livro", editora);
                     break;
             }  
         }  

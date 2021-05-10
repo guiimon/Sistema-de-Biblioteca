@@ -37,7 +37,7 @@ public class Exemplar extends Livro {
     //metodos princiais   
     
     public void registrarExemplar() {
-    	File caminho = new File("C:\\Biblioteca\\Exemplar");
+    	File caminho = new File("C:/Biblioteca/exemplar");
     	File arquivo = new File(caminho, String.valueOf(getCodigo())+".txt" );
     	if(!(caminho.exists())); caminho.mkdir();
     	if(!(arquivo.exists())) {
@@ -73,7 +73,7 @@ public class Exemplar extends Livro {
     }
     
     public void recebeExemplar(int codigo) {
-    	String caminho = "C:\\Biblioteca\\Exemplar";
+    	String caminho = "C:/Biblioteca/exemplar";
       	File arquivo = new File(caminho, codigo+".txt" );
     	if(arquivo.exists()) {
             try {
@@ -107,7 +107,7 @@ public class Exemplar extends Livro {
     }
     
     public void editaExemplar() {
-    	File caminho = new File("C:\\Biblioteca\\Exemplar");
+    	File caminho = new File("C:/Biblioteca/exemplar");
     	File arquivo = new File(caminho, String.valueOf(getCodigo())+".txt" );
     	
     	if(!(caminho.exists())){
@@ -145,7 +145,7 @@ public class Exemplar extends Livro {
     }
     
     public void excluirExemplar() {
-    	File caminho = new File("C:\\Biblioteca\\Exemplar");
+    	File caminho = new File("C:/Biblioteca/exemplar");
     	File arquivo = new File(caminho, getCodigo()+".txt" );
     	if(arquivo.delete()) {
             System.out.println("Deletado aquivo "+arquivo.getName());
